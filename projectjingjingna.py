@@ -50,8 +50,11 @@ class Built_Button(object):
         dic = {'bloodgroup':bloodtype, 'thalassemia':thalassemia,
                'galactosemia':galactosemia, 'cysticfibrosis':cysticfibrosis,
                'phenylketoneuria':phenylketoneuria, 'glycogen':glycogen,
-               'acondroplasia':acondroplasia,
-               'colorblindness':colorblindness}
+               'albinism':albinism, 'acondroplasia':acondroplasia,
+               'marfansd':marfansd, 'neurofibro':neurofibro,
+               'huntingron':huntingron, 'osteogenesis':osteogenesis,
+               'peutzsd':peutzsd,
+               'colorblindness':colorblindness, 'main':main}
         if value in dic:
             self.value = dic[value]
         else:
@@ -69,43 +72,78 @@ class Family(object):
         self.root = root
         self.code = code
         self.tree()
+    
+
     def tree(self):
         self.root.destroy()
         self.root = tk.Tk()
         diseasedname = Print(self.root, self.name, row=0, column=4)
 
         global poo, yaa, taa, yay, dad, mom
-       
-        poo_show = Print(self.root, "Grandfather", row=4, column=1)
-        self.poo = tk.StringVar(self.root)
-        self.poo.set('NORMAL')
-        poo_type = tk.OptionMenu(self.root, self.poo, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=1)
 
-        yaa_show = Print(self.root, "Grandmother", row=4, column=3)
-        self.yaa = tk.StringVar(self.root)
-        self.yaa.set('NORMAL')
-        yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=3)
+        if self.code == 'AR':
 
-        taa_show = Print(self.root, "Grandfather", row=4, column=6)
-        self.taa = tk.StringVar(self.root)
-        self.taa.set('NORMAL')
-        taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=6)
+            poo_show = Print(self.root, "Grandfather", row=4, column=1)
+            self.poo = tk.StringVar(self.root)
+            self.poo.set('NORMAL')
+            poo_type = tk.OptionMenu(self.root, self.poo, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=1)
 
-        yay_show = Print(self.root, "Grandmother", row=4, column=8)
-        self.yay = tk.StringVar(self.root)
-        self.yay.set('NORMAL')
-        yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=8)
+            yaa_show = Print(self.root, "Grandmother", row=4, column=3)
+            self.yaa = tk.StringVar(self.root)
+            self.yaa.set('NORMAL')
+            yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=3)
 
-        dad_show = Print(self.root, "DADDY", row=7, column=2)
-        self.dad = tk.StringVar(self.root)
-        self.dad.set('NORMAL')
-        dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=8, column=2)
+            taa_show = Print(self.root, "Grandfather", row=4, column=6)
+            self.taa = tk.StringVar(self.root)
+            self.taa.set('NORMAL')
+            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=6)
 
-        mom_show = Print(self.root, "MOMMY", row=7, column=7)
-        self.mom = tk.StringVar(self.root)
-        self.mom.set('NORMAL')
-        mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=8, column=7)
+            yay_show = Print(self.root, "Grandmother", row=4, column=8)
+            self.yay = tk.StringVar(self.root)
+            self.yay.set('NORMAL')
+            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=8)
 
+            dad_show = Print(self.root, "DADDY", row=7, column=2)
+            self.dad = tk.StringVar(self.root)
+            self.dad.set('NORMAL')
+            dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=8, column=2)
+
+            mom_show = Print(self.root, "MOMMY", row=7, column=7)
+            self.mom = tk.StringVar(self.root)
+            self.mom.set('NORMAL')
+            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=8, column=7)
+
+        else:
+            poo_show = Print(self.root, "Grandfather", row=4, column=1)
+            self.poo = tk.StringVar(self.root)
+            self.poo.set('NORMAL')
+            poo_type = tk.OptionMenu(self.root, self.poo, 'NORMAL', 'DISEASED').grid(row=5, column=1)
+
+            yaa_show = Print(self.root, "Grandmother", row=4, column=3)
+            self.yaa = tk.StringVar(self.root)
+            self.yaa.set('NORMAL')
+            yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED').grid(row=5, column=3)
+
+            taa_show = Print(self.root, "Grandfather", row=4, column=6)
+            self.taa = tk.StringVar(self.root)
+            self.taa.set('NORMAL')
+            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED').grid(row=5, column=6)
+
+            yay_show = Print(self.root, "Grandmother", row=4, column=8)
+            self.yay = tk.StringVar(self.root)
+            self.yay.set('NORMAL')
+            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED').grid(row=5, column=8)
+
+            dad_show = Print(self.root, "DADDY", row=7, column=2)
+            self.dad = tk.StringVar(self.root)
+            self.dad.set('NORMAL')
+            dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED').grid(row=8, column=2)
+
+            mom_show = Print(self.root, "MOMMY", row=7, column=7)
+            self.mom = tk.StringVar(self.root)
+            self.mom.set('NORMAL')
+            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED').grid(row=8, column=7)
+    
         process = tk.Button(self.root, text='PROCESS',command=self.bus).grid(row=10, column=4)
 
     def bus(self):
@@ -136,7 +174,9 @@ class Result(object):
 
     def predict(self):
         if self.code == 'AR':
-            didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':'Normal'}
+            didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
+        elif self.code == 'AD':
+            didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
         string = "your baby's gene is \n"
         for item in self.baby:
             string += didic[item] + '     ' + str(self.baby[item] * 25) + '%' + '\n'
@@ -187,7 +227,7 @@ def cross(male, female, code, re):
         gtab = {'D':'aa', 'C':'Aa', 'N': 'AA'}
     #edit
     elif code == 'AD':
-        gtab = {'N':'aa', 'D':'Aa', 'D': 'AA'}
+        gtab = {'N':'aa', 'D': 'AA', 'C':'Aa'}
     else:
         'wait'
     genotype = dict()
@@ -212,6 +252,14 @@ def cross(male, female, code, re):
                 return 'N'
         else:
             return genotype
+    if code == 'AD':
+        if re == 'check':
+            if 'AA' in genotype:
+                return 'D'
+            else:
+                return 'C'
+        else:
+            return genotype
 def autosomerecessive(root, poo, yaa, taa, yay, dad, mom, code, name):
     print poo, yaa, taa, yay, dad, mom, code
     if dad == 'N':
@@ -229,15 +277,11 @@ def autosomerecessive(root, poo, yaa, taa, yay, dad, mom, code, name):
 
 def autosomedominant(root, poo, yaa, taa, yay, dad, mom, code, name):
     print poo, yaa, taa, yay, dad, mom, code
-    if dad == 'N':
+    if dad == 'D':
         dad = cross(poo, yaa, code, 'check')
-        if dad == 'D':
-            dad = 'C'
     print dad
-    if mom == 'N':
+    if mom == 'D':
         mom = cross(taa, yay, code, 'check')
-        if mom == 'D':
-            mom = 'C'
     print mom
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
@@ -257,10 +301,30 @@ def phenylketoneuria():
 def glycogen():
     glyco = Family(root, 'Glycogen Storage Disease', 'AR')
 
+def albinism():
+    albinism = Family(root, 'Albinism', 'AR')
+
 #Autosome Dominant Disease
 
 def acondroplasia():
     acon = Family(root, 'Acondroplasia', 'AD')
+
+def marfansd():
+    marfan = Family(root, 'Marfan Syndrome', 'AD')
+
+def neurofibro():
+    neuro = Family(root, 'Neurofibromatosis', 'AD')
+
+def huntingron():
+    hunti = Family(root, "Huntingron's chorea", 'AD')
+
+def osteogenesis():
+    osteo = Family(root, 'Osteogenesis imperfecta(OI)', 'AD')
+
+def peutzsd():
+    peut = (root, 'Peutz syndrome', 'AD')
+
+#X-linked recessive
 def colorblindness():
     color = Family(root, 'Color Blindness', 'XL')
     
@@ -276,12 +340,19 @@ def main():
     galac = Built_Button(root, 'Galactosemia', 'galactosemia', row=4, column=1)
     cystic = Built_Button(root, 'Cystic Fibrosis', 'cysticfibrosis', row=5, column=1)
     phenyl = Built_Button(root, 'Phenylketoneuria', 'phenylketoneuria', row=6, column=1)
-    glyco = Built_Button(root, 'Glycogen Storage Disease', 'glycogen', row=6, column=1)
+    glyco = Built_Button(root, 'Glycogen Storage Disease', 'glycogen', row=7, column=1)
+    albinism = Built_Button(root, 'Albinism', 'albinism', row=8, column=1)
 
-    ad = ar = Print(root, 'Autosome Dominant', row=7,column=1)
-    acon = Built_Button(root, 'Acondroplasia', 'acondroplasia', row=8, column=1)
-    xlink = Print(root, 'X-link Recessive', row=10,column=1)
-    color = Built_Button(root, 'Color Blindness', 'colorblindness', row=11, column=1)
+    ad = Print(root, 'Autosome Dominant', row=9,column=1)
+    acon = Built_Button(root, 'Acondroplasia', 'acondroplasia', row=10, column=1)
+    marfan = Built_Button(root, 'Marfan Syndrome', 'marfansd', row=11, column=1)
+    neuro = Built_Button(root, 'Neurofibromatosis', 'neurofibro', row=12, column=1)
+    hunti = Built_Button(root, "Huntingron's chorea", 'huntingron', row=13, column=1)
+    osteo = Built_Button(root, 'Osteogenesis imperfecta(OI)', 'osteogenesis', row=14, column=1)
+    peut = Built_Button(root, 'Peutz syndrome', 'peutzsd', row=15, column=1)
+    
+    xlink = Print(root, 'X-link Recessive', row=16,column=1)
+    color = Built_Button(root, 'Color Blindness', 'colorblindness', row=17, column=1)
 
 main()
 
