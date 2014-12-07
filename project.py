@@ -7,6 +7,9 @@ APPLICATION to tell you
 - chance of gene's your baby
 --Blood Group
 --Genetic Diseases
+<<<<<<< HEAD
+************it only probability************
+=======
 ------Autosome Recessive
 --------Thalassemia
 --------Cystic fibrosis
@@ -22,6 +25,7 @@ APPLICATION to tell you
 ----------Hypohidrotic Ectodermal Dysplasia
 -----Sickle cell anemia
 ************this is only chance************
+>>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
 '''
 
 import Tkinter as tk
@@ -178,6 +182,14 @@ class Result(object):
             didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
         elif self.code == 'AD':
             didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
+<<<<<<< HEAD
+        elif self.code == 'XL':
+            didic= {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
+                    'XX':' Normal Daughter', 'Xx':self.name +' Normal(carrier) Daughter',
+                    'xx':self.name +' Diseased Daughter'}
+            per = 50
+=======
+>>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
         string = "your baby's gene is \n"
         for item in self.baby:
             string += didic[item] + '     ' + str(self.baby[item] * 25) + '%' + '\n'
@@ -288,6 +300,19 @@ def autosomedominant(root, poo, yaa, taa, yay, dad, mom, code, name):
     print mom
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
+<<<<<<< HEAD
+
+def xlink(root, poo, yaa, taa, yay, dad, mom, code, name):
+    print poo, yaa, taa, yay, dad, mom, code
+    if mom == 'N':
+        mom = cross(taa, yay, code, 'check')
+    print dad
+    print mom
+    baby = cross(dad, mom, code, 'baby')
+    print_result = Result(root, baby, name, code)
+    
+=======
+>>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
 #Autosome Recessive Disease  
 def thalassemia():
     thala = Family(root, 'Thalassemia', 'AR')
@@ -308,7 +333,6 @@ def albinism():
     albinism = Family(root, 'Albinism', 'AR')
 
 #Autosome Dominant Disease
-
 def acondroplasia():
     acon = Family(root, 'Acondroplasia', 'AD')
 
