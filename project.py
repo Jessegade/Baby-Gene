@@ -52,7 +52,7 @@ class Built_Button(object):
     '''
     def __init__(self, root, text, value, row, column):
         self.root = root
-        dic = {'bloodgroup':bloodtype, 'thalassemia':thalassemia,
+        dic = {'bloodtype':bloodtype, 'thalassemia':thalassemia,
                'galactosemia':galactosemia, 'cysticfibrosis':cysticfibrosis,
                'phenylketoneuria':phenylketoneuria, 'glycogen':glycogen,
                'albinism':albinism, 'acondroplasia':acondroplasia,
@@ -182,6 +182,7 @@ class Result(object):
             didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
         elif self.code == 'AD':
             didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
+
         elif self.code == 'XL':
             didic= {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
                     'XX':' Normal Daughter', 'Xx':self.name +' Normal(carrier) Daughter',
@@ -197,24 +198,30 @@ def bloodtype():
     root.destroy()
     win1 = tk.Tk()
     win1.title('Blood Type')
+    win1.geometry("430x430+300+300")
+    image = Image.open('win1.jpg')
+    tkimage = ImageTk.PhotoImage(image)
+    bg = tk.Label(win1, image = tkimage)
+    bg.place(x=0, y=0, relwidth=1, relheight=1)
     
     global mom, dad
     
     mom_text = tk.Label(win1, text='Mother Blood Type: ').grid(row=0, column=0)
-
     mom = tk.StringVar(win1)
     mom.set('A')
     mom_type = tk.OptionMenu(win1, mom, 'A', 'B', 'AB', 'O').grid(row=0, column=1)
 
-    dad_text = tk.Label(win1, text='Father Blood Type: ').grid(row=2, column=0)
-    
+    dad_text = tk.Label(win1, text='Father Blood Type: ').grid(row=2, column=0)  
     dad = tk.StringVar(win1)
     dad.set('A')
     dad_type = tk.OptionMenu(win1, dad, 'A', 'B', 'AB', 'O').grid(row=2, column=1)
-    photo = tk.PhotoImage(file='beagle.JPG')
-    sdg = tk.Button(win1,image=photo).grid(row=3, column=1)
-    #ok_button = tk.Button(win1, text='ok',command=ok,image=photo).grid(row=3, column=1)
-def ok():
+    
+    image = Image.open('processbutton.png')
+    process_image = ImageTk.PhotoImage(image)
+    process_button = tk.Button(win1,command=process,image=process_image,border=0).grid(row=3, column=1)
+    process_button.place()
+    
+def process():
     mom_and_dad = str(mom.get())+str(dad.get())
     group = {'AA': ['A 50%', 'O 50%'], \
              'BB': ['B 50%', 'O 50%'], \
@@ -359,29 +366,29 @@ bg = tk.Label(root, image = tkimage)
 bg.place(x=0, y=0, relwidth=1, relheight=1)
 
 
+
+
 def main():
     '''screen'''
-
-    welcome = tk.Label(root, text='BABY GENE').grid(row=0, column=1)
-    bloodgroup = Built_Button(root, 'Blood Group', 'bloodgroup', row=1, column=1)
+    bloodgroup = Built_Button(root, 'Blood Type', 'bloodtype', row=1, column=7)
     
-    ar = tk.Label(root, text='Autosome Recessive').grid(row=2, column=1)
-    thalassemia = Built_Button(root, 'Thalassemia', 'thalassemia', row=3, column=1)
-    galac = Built_Button(root, 'Galactosemia', 'galactosemia', row=4, column=1)
-    cystic = Built_Button(root, 'Cystic Fibrosis', 'cysticfibrosis', row=5, column=1)
-    phenyl = Built_Button(root, 'Phenylketoneuria', 'phenylketoneuria', row=6, column=1)
-    glyco = Built_Button(root, 'Glycogen Storage Disease', 'glycogen', row=7, column=1)
-    albinism = Built_Button(root, 'Albinism', 'albinism', row=8, column=1)
+    ar = tk.Label(root, text='Autosome Recessive').grid(row=2, column=7)
+    thalassemia = Built_Button(root, 'Thalassemia', 'thalassemia', row=3, column=7)
+    galac = Built_Button(root, 'Galactosemia', 'galactosemia', row=4, column=7)
+    cystic = Built_Button(root, 'Cystic Fibrosis', 'cysticfibrosis', row=5, column=7)
+    phenyl = Built_Button(root, 'Phenylketoneuria', 'phenylketoneuria', row=6, column=7)
+    glyco = Built_Button(root, 'Glycogen Storage Disease', 'glycogen', row=7, column=7)
+    albinism = Built_Button(root, 'Albinism', 'albinism', row=8, column=7)
 
-    ad = tk.Label(root, text='Autosome Dominant').grid(row=9, column=1)
-    acon = Built_Button(root, 'Acondroplasia', 'acondroplasia', row=10, column=1)
-    marfan = Built_Button(root, 'Marfan Syndrome', 'marfansd', row=11, column=1)
-    neuro = Built_Button(root, 'Neurofibromatosis', 'neurofibro', row=12, column=1)
-    hunti = Built_Button(root, "Huntingron's chorea", 'huntingron', row=13, column=1)
-    osteo = Built_Button(root, 'Osteogenesis imperfecta(OI)', 'osteogenesis', row=14, column=1)
-    peut = Built_Button(root, 'Peutz syndrome', 'peutzsd', row=15, column=1)
+    ad = tk.Label(root, text='Autosome Dominant').grid(row=9, column=7)
+    acon = Built_Button(root, 'Acondroplasia', 'acondroplasia', row=10, column=7)
+    marfan = Built_Button(root, 'Marfan Syndrome', 'marfansd', row=11, column=7)
+    neuro = Built_Button(root, 'Neurofibromatosis', 'neurofibro', row=12, column=7)
+    hunti = Built_Button(root, "Huntingron's chorea", 'huntingron', row=13, column=7)
+    osteo = Built_Button(root, 'Osteogenesis imperfecta(OI)', 'osteogenesis', row=14, column=7)
+    peut = Built_Button(root, 'Peutz syndrome', 'peutzsd', row=15, column=7)
     
-    xlink = tk.Label(root, text='X-link Recessive').grid(row=16, column=1)
+    xlink = tk.Label(root, text='X-link Recessive').grid(row=16, column=7)
     color = Built_Button(root, 'Color Blindness', 'colorblindness', row=17, column=1)
     
 
