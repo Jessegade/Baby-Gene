@@ -177,22 +177,19 @@ class Result(object):
     
         yourbaby = Print(self.root, self.predict(), row=1, column=0)
 
-    def predict(self):
+    def predict(self, per=25):
         if self.code == 'AR':
             didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
         elif self.code == 'AD':
             didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
-<<<<<<< HEAD
         elif self.code == 'XL':
             didic= {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
                     'XX':' Normal Daughter', 'Xx':self.name +' Normal(carrier) Daughter',
                     'xx':self.name +' Diseased Daughter'}
             per = 50
-=======
->>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
         string = "your baby's gene is \n"
         for item in self.baby:
-            string += didic[item] + '     ' + str(self.baby[item] * 25) + '%' + '\n'
+            string += didic[item] + '     ' + str(self.baby[item] * per) + '%' + '\n'
         string += '***it only probability***'
         return string
         
@@ -300,7 +297,6 @@ def autosomedominant(root, poo, yaa, taa, yay, dad, mom, code, name):
     print mom
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
-<<<<<<< HEAD
 
 def xlink(root, poo, yaa, taa, yay, dad, mom, code, name):
     print poo, yaa, taa, yay, dad, mom, code
@@ -311,8 +307,6 @@ def xlink(root, poo, yaa, taa, yay, dad, mom, code, name):
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
     
-=======
->>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
 #Autosome Recessive Disease  
 def thalassemia():
     thala = Family(root, 'Thalassemia', 'AR')
