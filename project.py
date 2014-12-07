@@ -188,7 +188,7 @@ def bloodtype():
     root.destroy()
     win1 = tk.Tk()
     win1.title('Blood Type')
-    #win1.configure(background = "white")
+    
     global mom, dad
     
     mom_text = tk.Label(win1, text='Mother Blood Type: ').grid(row=0, column=0)
@@ -202,7 +202,9 @@ def bloodtype():
     dad = tk.StringVar(win1)
     dad.set('A')
     dad_type = tk.OptionMenu(win1, dad, 'A', 'B', 'AB', 'O').grid(row=2, column=1)
-    ok_button = tk.Button(win1, text='ok',command=ok).grid(row=3, column=1)
+    photo = tk.PhotoImage(file='beagle.JPG')
+    sdg = tk.Button(win1,image=photo).grid(row=3, column=1)
+    #ok_button = tk.Button(win1, text='ok',command=ok,image=photo).grid(row=3, column=1)
 def ok():
     mom_and_dad = str(mom.get())+str(dad.get())
     group = {'AA': ['A 50%', 'O 50%'], \
@@ -328,11 +330,20 @@ def peutzsd():
 #X-linked recessive
 def colorblindness():
     color = Family(root, 'Color Blindness', 'XL')
-    
+
+
+#main gui    
 root = tk.Tk()
+root.geometry("430x600+300+300")
+image = Image.open('bg.jpg')
+tkimage = ImageTk.PhotoImage(image)
+bg = tk.Label(root, image = tkimage)
+bg.place(x=0, y=0, relwidth=1, relheight=1)
+
 
 def main():
     '''screen'''
+
     welcome = tk.Label(root, text='BABY GENE').grid(row=0, column=1)
     bloodgroup = Built_Button(root, 'Blood Group', 'bloodgroup', row=1, column=1)
     
@@ -354,8 +365,9 @@ def main():
     
     xlink = tk.Label(root, text='X-link Recessive').grid(row=16, column=1)
     color = Built_Button(root, 'Color Blindness', 'colorblindness', row=17, column=1)
+    
+
 
 main()
-
 root.mainloop()
         
