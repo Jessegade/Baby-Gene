@@ -7,25 +7,7 @@ APPLICATION to tell you
 - chance of gene's your baby
 --Blood Group
 --Genetic Diseases
-<<<<<<< HEAD
 ************it only probability************
-=======
-------Autosome Recessive
---------Thalassemia
---------Cystic fibrosis
---------Phenylketonuria(PKU)
-------Autosome Dominant
---------Achondroplasia
-------Sex-linked Gene
---------X-linked gene
-----------Color blindness
-----------Glocose-6-phosphate dehydrogenase(G-6-PD)
-----------Hemophilia
-----------Duchennne's muscular dystrophy
-----------Hypohidrotic Ectodermal Dysplasia
------Sickle cell anemia
-************this is only chance************
->>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
 '''
 
 import Tkinter as tk
@@ -42,8 +24,8 @@ class Print(object):
         self.text = text
         self.row = row
         self.column = column
-        self.message = tk.Message(root, text=text)
-        self.message.grid(row=self.row, column=self.column)
+        self.label = tk.Label(root, text=text)
+        self.label.grid(row=self.row, column=self.column)
 
 class Built_Button(object):
     '''
@@ -82,7 +64,13 @@ class Family(object):
     def tree(self):
         self.root.destroy()
         self.root = tk.Tk()
-        diseasedname = tk.Label(self.root, text=self.name).grid(row=0, column=4)
+        self.root.geometry("430x430+300+300")
+        image = Image.open('win1.jpg')
+        tkimage = ImageTk.PhotoImage(image)
+        bg = tk.Label(self.root, image = tkimage)
+        bg.place(x=0, y=0, relwidth=1, relheight=1)
+
+        diseasedname = tk.Label(self.root, text=self.name.upper()).grid(row=0, column=2)
 
         global poo, yaa, taa, yay, dad, mom
 
@@ -98,25 +86,25 @@ class Family(object):
             self.yaa.set('NORMAL')
             yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=3)
 
-            taa_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=6)
+            taa_show = tk.Label(self.root, text="Grandfather").grid(row=10, column=1)
             self.taa = tk.StringVar(self.root)
             self.taa.set('NORMAL')
-            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=6)
+            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=11, column=1)
 
-            yay_show = tk.Label(self.root, text="Grandmother").grid(row=4, column=8)
+            yay_show = tk.Label(self.root, text="Grandmother").grid(row=10, column=3)
             self.yay = tk.StringVar(self.root)
             self.yay.set('NORMAL')
-            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=8)
+            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=11, column=3)
 
             dad_show = tk.Label(self.root, text="Father").grid(row=7, column=2)
             self.dad = tk.StringVar(self.root)
             self.dad.set('NORMAL')
             dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=8, column=2)
 
-            mom_show = tk.Label(self.root, text="Mother").grid(row=7, column=7)
+            mom_show = tk.Label(self.root, text="Mother").grid(row=12, column=2)
             self.mom = tk.StringVar(self.root)
             self.mom.set('NORMAL')
-            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=8, column=7)
+            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=13, column=2)
 
         else:
             poo_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=1)
@@ -129,28 +117,31 @@ class Family(object):
             self.yaa.set('NORMAL')
             yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED').grid(row=5, column=3)
 
-            taa_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=6)
+            taa_show = tk.Label(self.root, text="Grandfather").grid(row=10, column=1)
             self.taa = tk.StringVar(self.root)
             self.taa.set('NORMAL')
-            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED').grid(row=5, column=6)
+            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED').grid(row=11, column=1)
 
-            yay_show = tk.Label(self.root, text="Grandmother").grid(row=4, column=8)
+            yay_show = tk.Label(self.root, text="Grandmother").grid(row=10, column=3)
             self.yay = tk.StringVar(self.root)
             self.yay.set('NORMAL')
-            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED').grid(row=5, column=8)
+            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED').grid(row=11, column=3)
 
             dad_show = tk.Label(self.root, text="Father").grid(row=7, column=2)
             self.dad = tk.StringVar(self.root)
             self.dad.set('NORMAL')
             dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED').grid(row=8, column=2)
 
-            mom_show = tk.Label(self.root, text="Mother").grid(row=7, column=7)
+            mom_show = tk.Label(self.root, text="Mother").grid(row=12, column=2)
             self.mom = tk.StringVar(self.root)
             self.mom.set('NORMAL')
-            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED').grid(row=8, column=7)
+            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED').grid(row=13, column=2)
     
-        process = tk.Button(self.root, text='PROCESS',command=self.bus).grid(row=10, column=4)
-
+        image = Image.open('processbutton.png')
+        process_image = ImageTk.PhotoImage(image)
+        process_button = tk.Button(self.root,command=self.bus,image=process_image,border=2).grid(row=14, column=2)
+        process_button.place()
+        
     def bus(self):
         st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C'}
         poo, yaa, dad = st[self.poo.get()], st[self.yaa.get()], st[self.dad.get()]
@@ -172,6 +163,12 @@ class Result(object):
     def print_gene(self):
         self.root.destroy()
         self.root = tk.Tk()
+        #edit error
+        self.root.geometry("430x430+300+300")
+        image = Image.open('win1.jpg')
+        tkimage = ImageTk.PhotoImage(image)
+        bg = tk.Label(self.root, image = tkimage)
+        bg.place(x=0, y=0, relwidth=1, relheight=1)
         
         head = Print(self.root, self.name, row=0, column=0)
     
@@ -365,9 +362,6 @@ tkimage = ImageTk.PhotoImage(image)
 bg = tk.Label(root, image = tkimage)
 bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-
-
-
 def main():
     '''screen'''
     bloodgroup = Built_Button(root, 'Blood Type', 'bloodtype', row=1, column=7)
@@ -389,7 +383,7 @@ def main():
     peut = Built_Button(root, 'Peutz syndrome', 'peutzsd', row=15, column=7)
     
     xlink = tk.Label(root, text='X-link Recessive').grid(row=16, column=7)
-    color = Built_Button(root, 'Color Blindness', 'colorblindness', row=17, column=1)
+    color = Built_Button(root, 'Color Blindness', 'colorblindness', row=17, column=7)
     
 
 
