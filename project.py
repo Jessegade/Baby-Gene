@@ -7,7 +7,7 @@ APPLICATION to tell you
 - chance of gene's your baby
 --Blood Group
 --Genetic Diseases
-************this is only chance************
+************it only probability************
 '''
 import Tkinter as tk
 from PIL import ImageTk, Image
@@ -162,8 +162,8 @@ class Result(object):
         elif self.code == 'AD':
             didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
         elif self.code == 'XL':
-            didic= {'Yx':self.name +' Diseased Son', 'XY':self.name +' Normal Son',
-                    'XX':self.name +' Normal Daughter', 'Xx':self.name +' Normal(carrier) Daughter',
+            didic= {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
+                    'XX':' Normal Daughter', 'Xx':self.name +' Normal(carrier) Daughter',
                     'xx':self.name +' Diseased Daughter'}
             per = 50
         string = "your baby's gene is \n"
@@ -286,6 +286,8 @@ def xlink(root, poo, yaa, taa, yay, dad, mom, code, name):
     print poo, yaa, taa, yay, dad, mom, code
     if mom == 'N':
         mom = cross(taa, yay, code, 'check')
+    print dad
+    print mom
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
     
@@ -309,7 +311,6 @@ def albinism():
     albinism = Family(root, 'Albinism', 'AR')
 
 #Autosome Dominant Disease
-
 def acondroplasia():
     acon = Family(root, 'Acondroplasia', 'AD')
 
