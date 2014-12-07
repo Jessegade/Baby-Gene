@@ -7,11 +7,31 @@ APPLICATION to tell you
 - chance of gene's your baby
 --Blood Group
 --Genetic Diseases
+<<<<<<< HEAD
 ************it only probability************
+=======
+------Autosome Recessive
+--------Thalassemia
+--------Cystic fibrosis
+--------Phenylketonuria(PKU)
+------Autosome Dominant
+--------Achondroplasia
+------Sex-linked Gene
+--------X-linked gene
+----------Color blindness
+----------Glocose-6-phosphate dehydrogenase(G-6-PD)
+----------Hemophilia
+----------Duchennne's muscular dystrophy
+----------Hypohidrotic Ectodermal Dysplasia
+-----Sickle cell anemia
+************this is only chance************
+>>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
 '''
+
 import Tkinter as tk
 from PIL import ImageTk, Image
 import tkMessageBox
+
 
 class Print(object):
     '''
@@ -22,8 +42,8 @@ class Print(object):
         self.text = text
         self.row = row
         self.column = column
-        self.label = tk.Label(root, text=text)
-        self.label.grid(row=self.row, column=self.column)
+        self.message = tk.Message(root, text=text)
+        self.message.grid(row=self.row, column=self.column)
 
 class Built_Button(object):
     '''
@@ -38,10 +58,8 @@ class Built_Button(object):
                'albinism':albinism, 'acondroplasia':acondroplasia,
                'marfansd':marfansd, 'neurofibro':neurofibro,
                'huntingron':huntingron, 'osteogenesis':osteogenesis,
-               'peutzsd':peutzsd, 'hemophilia':hemophilia,
-               'g6pd':g6pd, 'duchenne':duchenne,
-               'hypohidro':hypohidro, 'colorblindness':colorblindness,
-               'main':main}
+               'peutzsd':peutzsd,
+               'colorblindness':colorblindness, 'main':main}
         if value in dic:
             self.value = dic[value]
         else:
@@ -60,6 +78,7 @@ class Family(object):
         self.code = code
         self.tree()
     
+
     def tree(self):
         self.root.destroy()
         self.root = tk.Tk()
@@ -140,8 +159,8 @@ class Family(object):
             autosomerecessive(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
         elif self.code == 'AD':
             autosomedominant(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
-        elif self.code == 'XL':
-            xlink(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
+        else:
+            print 'h'
 
 class Result(object):
     def __init__(self, root ,baby, name, code):
@@ -153,22 +172,27 @@ class Result(object):
     def print_gene(self):
         self.root.destroy()
         self.root = tk.Tk()
+        
         head = Print(self.root, self.name, row=0, column=0)
+    
         yourbaby = Print(self.root, self.predict(), row=1, column=0)
 
-    def predict(self, per=25):
+    def predict(self):
         if self.code == 'AR':
             didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
         elif self.code == 'AD':
             didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
+<<<<<<< HEAD
         elif self.code == 'XL':
             didic= {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
                     'XX':' Normal Daughter', 'Xx':self.name +' Normal(carrier) Daughter',
                     'xx':self.name +' Diseased Daughter'}
             per = 50
+=======
+>>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
         string = "your baby's gene is \n"
         for item in self.baby:
-            string += didic[item] + '     ' + str(self.baby[item] * per) + '%' + '\n'
+            string += didic[item] + '     ' + str(self.baby[item] * 25) + '%' + '\n'
         string += '***it only probability***'
         return string
         
@@ -176,7 +200,7 @@ def bloodtype():
     root.destroy()
     win1 = tk.Tk()
     win1.title('Blood Type')
-    #win1.configure(background = "white")
+    
     global mom, dad
     
     mom_text = tk.Label(win1, text='Mother Blood Type: ').grid(row=0, column=0)
@@ -190,7 +214,9 @@ def bloodtype():
     dad = tk.StringVar(win1)
     dad.set('A')
     dad_type = tk.OptionMenu(win1, dad, 'A', 'B', 'AB', 'O').grid(row=2, column=1)
-    ok_button = tk.Button(win1, text='ok',command=ok).grid(row=3, column=1)
+    photo = tk.PhotoImage(file='beagle.JPG')
+    sdg = tk.Button(win1,image=photo).grid(row=3, column=1)
+    #ok_button = tk.Button(win1, text='ok',command=ok,image=photo).grid(row=3, column=1)
 def ok():
     mom_and_dad = str(mom.get())+str(dad.get())
     group = {'AA': ['A 50%', 'O 50%'], \
@@ -210,20 +236,17 @@ def ok():
              'BO': ['B 50%', 'O 50%'], \
              'OB': ['B 50%', 'O 50%']}
     tkMessageBox.showinfo('Result',' or '.join(group[mom_and_dad]))
-    
+
 def cross(male, female, code, re):
     if code == 'AR':
         gtab = {'D':'aa', 'C':'Aa', 'N': 'AA'}
+    #edit
     elif code == 'AD':
         gtab = {'N':'aa', 'D': 'AA', 'C':'Aa'}
-    elif code == 'XL':
-        gtabmale = {'N':'XY', 'D':'Yx'}
-        gtabfemale = {'N':'XX', 'C':'Xx', 'D':'xx'}
-    genotype = dict()
-    if code == 'XL':
-        male, female = gtabmale[male], gtabfemale[female]
     else:
-        male, female = gtab[male], gtab[female]
+        'wait'
+    genotype = dict()
+    male, female = gtab[male], gtab[female]
     for s in male:
         for e in female:
             geno = [s, e]
@@ -237,14 +260,14 @@ def cross(male, female, code, re):
     if code == 'AR':
         if re == 'check':
             if 'aa' in genotype:
-                return 'C'
+                return 'D'
             elif 'Aa' in genotype:
                 return 'C'
             else:
                 return 'N'
         else:
             return genotype
-    elif code == 'AD':
+    if code == 'AD':
         if re == 'check':
             if 'AA' in genotype:
                 return 'D'
@@ -252,21 +275,17 @@ def cross(male, female, code, re):
                 return 'C'
         else:
             return genotype
-    elif code == 'XL':
-        if re == 'check':
-            if 'Xx' in genotype:
-                return 'C'
-            else:
-                return 'N'
-        else:
-            return genotype
 def autosomerecessive(root, poo, yaa, taa, yay, dad, mom, code, name):
     print poo, yaa, taa, yay, dad, mom, code
     if dad == 'N':
         dad = cross(poo, yaa, code, 'check')
+        if dad == 'D':
+            dad = 'C'
     print dad
     if mom == 'N':
         mom = cross(taa, yay, code, 'check')
+        if mom == 'D':
+            mom = 'C'
     print mom
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
@@ -281,6 +300,7 @@ def autosomedominant(root, poo, yaa, taa, yay, dad, mom, code, name):
     print mom
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
+<<<<<<< HEAD
 
 def xlink(root, poo, yaa, taa, yay, dad, mom, code, name):
     print poo, yaa, taa, yay, dad, mom, code
@@ -291,6 +311,8 @@ def xlink(root, poo, yaa, taa, yay, dad, mom, code, name):
     baby = cross(dad, mom, code, 'baby')
     print_result = Result(root, baby, name, code)
     
+=======
+>>>>>>> 688c34e1816ae14eca7a68e9b5135a989a08ff2a
 #Autosome Recessive Disease  
 def thalassemia():
     thala = Family(root, 'Thalassemia', 'AR')
@@ -327,32 +349,29 @@ def osteogenesis():
     osteo = Family(root, 'Osteogenesis imperfecta(OI)', 'AD')
 
 def peutzsd():
-    peut = Family(root, 'Peutz syndrome', 'AD')
+    peut = (root, 'Peutz syndrome', 'AD')
 
 #X-linked recessive
 def colorblindness():
     color = Family(root, 'Color Blindness', 'XL')
 
-def hemophilia():
-    hemo = Family(root, 'Hemophilia', 'XL')
 
-def g6pd():
-    g6pd = Family(root, 'G-6-PD deficieccy', 'XL')
-
-def duchenne():
-    duch = Family(root, "Duchenne's muscular dystrophy", 'XL')
-
-def hypohidro():
-    hypo = Family(root, "Hypohidrotic ectodermal dysplasia", 'XL')
-    
+#main gui    
 root = tk.Tk()
+root.geometry("430x600+300+300")
+image = Image.open('bg.jpg')
+tkimage = ImageTk.PhotoImage(image)
+bg = tk.Label(root, image = tkimage)
+bg.place(x=0, y=0, relwidth=1, relheight=1)
+
 
 def main():
     '''screen'''
+
     welcome = tk.Label(root, text='BABY GENE').grid(row=0, column=1)
     bloodgroup = Built_Button(root, 'Blood Group', 'bloodgroup', row=1, column=1)
     
-    ar = tk.Label(root, text='AUTOSOME RECESSIVE').grid(row=2, column=1)
+    ar = tk.Label(root, text='Autosome Recessive').grid(row=2, column=1)
     thalassemia = Built_Button(root, 'Thalassemia', 'thalassemia', row=3, column=1)
     galac = Built_Button(root, 'Galactosemia', 'galactosemia', row=4, column=1)
     cystic = Built_Button(root, 'Cystic Fibrosis', 'cysticfibrosis', row=5, column=1)
@@ -360,7 +379,7 @@ def main():
     glyco = Built_Button(root, 'Glycogen Storage Disease', 'glycogen', row=7, column=1)
     albinism = Built_Button(root, 'Albinism', 'albinism', row=8, column=1)
 
-    ad = tk.Label(root, text='AUTOSOME DOMINANT').grid(row=9, column=1)
+    ad = tk.Label(root, text='Autosome Dominant').grid(row=9, column=1)
     acon = Built_Button(root, 'Acondroplasia', 'acondroplasia', row=10, column=1)
     marfan = Built_Button(root, 'Marfan Syndrome', 'marfansd', row=11, column=1)
     neuro = Built_Button(root, 'Neurofibromatosis', 'neurofibro', row=12, column=1)
@@ -368,14 +387,11 @@ def main():
     osteo = Built_Button(root, 'Osteogenesis imperfecta(OI)', 'osteogenesis', row=14, column=1)
     peut = Built_Button(root, 'Peutz syndrome', 'peutzsd', row=15, column=1)
     
-    xlink = tk.Label(root, text='X-LINKED RECESSIVE').grid(row=16, column=1)
+    xlink = tk.Label(root, text='X-link Recessive').grid(row=16, column=1)
     color = Built_Button(root, 'Color Blindness', 'colorblindness', row=17, column=1)
-    hemo = Built_Button(root, 'Hemophilia', 'hemophilia', row=18, column=1)
-    g6pd = Built_Button(root, 'G-6-PD deficieccy', 'g6pd', row=19, column=1)
-    duch = Built_Button(root, "Duchenne's muscular dystrophy", 'duchenne', row=20, column=1)
-    hypo = Built_Button(root, "Hypohidrotic ectodermal dysplasia", 'hypohidro', row=21, column=1)
+    
+
 
 main()
-
 root.mainloop()
         
