@@ -400,43 +400,42 @@ def hypohidro():
     hypo = Family(root, "Hypohidrotic ectodermal dysplasia", 'XL')
 
 root = tk.Tk()
-root.geometry("430x600+300+300")
+root.geometry("430x650+300+300")
 image = Image.open('bg.jpg')
 tkimage = ImageTk.PhotoImage(image)
 bg = tk.Label(root, image = tkimage)
 bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-class App():
+class App(object):
     def __init__(self):
         self.root = root
         self.main()
     def main(self):
         '''screen'''
-        bloodgroup = Built_Button(self.root, 'Blood Type', 'bloodtype', row=1, column=7)
-        
-        ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').grid(row=2, column=7)
-        thalassemia = Built_Button(self.root, 'Thalassemia', 'thalassemia', row=3, column=7)
-        galac = Built_Button(self.root, 'Galactosemia', 'galactosemia', row=4, column=7)
-        cystic = Built_Button(self.root, 'Cystic Fibrosis', 'cysticfibrosis', row=5, column=7)
-        phenyl = Built_Button(self.root, 'Phenylketoneuria', 'phenylketoneuria', row=6, column=7)
-        glyco = Built_Button(self.root, 'Glycogen Storage Disease', 'glycogen', row=7, column=7)
-        albinism = Built_Button(self.root, 'Albinism', 'albinism', row=8, column=7)
+        bloodgroup = tk.Button(self.root, text='Blood Type', command=bloodtype).place(x=180,y=112)
 
-        ad = tk.Label(self.root, text='AUTOSOME DOMINANT').grid(row=9, column=7)
-        acon = Built_Button(self.root, 'Acondroplasia', 'acondroplasia', row=10, column=7)
-        marfan = Built_Button(self.root, 'Marfan Syndrome', 'marfansd', row=11, column=7)
-        neuro = Built_Button(self.root, 'Neurofibromatosis', 'neurofibro', row=12, column=7)
-        hunti = Built_Button(self.root, "Huntingron's chorea", 'huntingron', row=13, column=7)
-        osteo = Built_Button(self.root, 'Osteogenesis imperfecta(OI)', 'osteogenesis', row=14, column=7)
-        peut = Built_Button(self.root, 'Peutz syndrome', 'peutzsd', row=15, column=7)
+        ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
+        thalas = tk.Button(root, text='Thalassemia', command=thalassemia).place(x=177,y=165)
+        galac = tk.Button(self.root, text='Galactosemia', command=galactosemia).place(x=173,y=191)
+        cystic = tk.Button(self.root, text='Cystic Fibrosis', command=cysticfibrosis).place(x=171,y=217)
+        phenyl = tk.Button(self.root, text='Phenylketoneuria', command=phenylketoneuria).place(x=163,y=243)
+        glyco = tk.Button(self.root, text='Glycogen Storage Disease', command=glycogen).place(x=144,y=269)
+        albin = tk.Button(self.root, text='Albinism', command=albinism).place(x=188,y=295)
+
+        ad = tk.Label(self.root, text='AUTOSOME DOMINANT').place(x=150,y=328)
+        acon = tk.Button(self.root, text='Acondroplasia', command=acondroplasia).place(x=173,y=348)
+        marfan = tk.Button(self.root, text='Marfan Syndrome', command=marfansd).place(x=163,y=374)
+        neuro = tk.Button(self.root, text='Neurofibromatosis', command=neurofibro).place(x=161,y=400)
+        hunti = tk.Button(self.root, text="Huntingron's chorea", command=huntingron).place(x=156,y=426)
+        osteo = tk.Button(self.root, text='Osteogenesis imperfecta(OI)', command=osteogenesis).place(x=136,y=452)
+        peut = tk.Button(self.root, text='Peutz syndrome', command=peutzsd).place(x=170,y=478)
         
-        xlink = tk.Label(self.root, text='X-LINKED RECESSIVE').grid(row=16, column=7)
-        color = Built_Button(self.root, 'Color Blindness', 'colorblindness', row=17, column=7)
-        hemo = Built_Button(self.root, 'Hemophilia', 'hemophilia', row=18, column=7)
-        g6pd = Built_Button(self.root, 'G-6-PD deficieccy', 'g6pd', row=19, column=7)
-        duch = Built_Button(self.root, "Duchenne's muscular dystrophy", 'duchenne', row=20, column=7)
-        hypo = Built_Button(self.root, "Hypohidrotic ectodermal dysplasia", 'hypohidro', row=21, column=7)
+        xlink = tk.Label(self.root, text='X-LINKED RECESSIVE').place(x=160,y=511)
+        color = tk.Button(self.root, text='Color Blindness', command=colorblindness).place(x=172,y=537)
+        hemo = tk.Button(self.root, text='Hemophilia', command=hemophilia).place(x=180,y=563)
+        g6 = tk.Button(self.root, text='G-6-PD deficieccy', command=g6pd).place(x=166,y=589)
+        duch = tk.Button(self.root, text="Duchenne's muscular dystrophy", command=duchenne).place(x=126,y=615)
+        hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=hypohidro).place(x=118,y=641)
+
 app = App()
 root.mainloop()
-
-        
