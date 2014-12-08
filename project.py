@@ -171,7 +171,7 @@ class Result(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
-        head = Print(self.root, self.name, row=0, column=0)
+        head = Print(self.root, self.name.upper(), row=0, column=0)
     
         yourbaby = Print(self.root, self.predict(), row=1, column=0)
 
@@ -180,26 +180,38 @@ class Result(object):
         back_button = tk.Button(self.root,command=self.back,image=back_image,border=2).grid(row=2, column=0)
         back_button.place()
 
-    def predict(self, per=25):
+    def predict(self):
         if self.code == 'AR':
             didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
         elif self.code == 'AD':
             didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
-
         elif self.code == 'XL':
             didic= {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
-                    'XX':' Normal Daughter', 'Xx':self.name +' Normal(carrier) Daughter',
+                    'XX':' Normal Daughter', 'Xx':' Normal(carrier) Daughter',
                     'xx':self.name +' Diseased Daughter'}
-            per = 50
-        string = "your baby's gene is \n"
-        for item in self.baby:
-            string += didic[item] + '     ' + str(self.baby[item] * per) + '%' + '\n'
+        string = "\nyour baby's gene is \n\n"
+        if self.code == 'XL':
+            son, daughter = list(), list()
+            for item in self.baby:
+                if 'Y' in item:
+                    son.append(item)
+                else:
+                    daughter.append(item)
+            string += 'SON\n'
+            for item in son:
+                string += didic[item] + '     ' + str(self.baby[item] * 50) + '%' + '\n'
+            string += '\n\nDAUGHTER\n'
+            for item in daughter:
+                string += didic[item] + '     ' + str(self.baby[item] * 50) + '%' + '\n'
+            return string
+        else:
+            for item in self.baby:
+                string += didic[item] + '     ' + str(self.baby[item] * 25) + '%' + '\n'
         string += '***it only probability***'
         return string
 
     def back(self):
         self.root.destroy()
-        self.root = tk.Tk()
         app = App()
         
 def bloodtype():
@@ -424,7 +436,7 @@ class App():
         g6pd = Built_Button(self.root, 'G-6-PD deficieccy', 'g6pd', row=19, column=7)
         duch = Built_Button(self.root, "Duchenne's muscular dystrophy", 'duchenne', row=20, column=7)
         hypo = Built_Button(self.root, "Hypohidrotic ectodermal dysplasia", 'hypohidro', row=21, column=7)
-root = App()
+app = App()
 root.mainloop()
 
         
