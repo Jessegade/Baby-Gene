@@ -4,7 +4,7 @@ PSIT Project
 By Tharathip Malaimarn(tharamalai=>nam)
     Pawarisa Thong-ngoen(Jessegade=>gade)
 APPLICATION to tell you
-- chance of gene's your baby
+- probability of gene's your baby
 --Blood Group
 --Genetic Diseases
 ************it only probability************
@@ -40,8 +40,9 @@ class Built_Button(object):
                'albinism':albinism, 'acondroplasia':acondroplasia,
                'marfansd':marfansd, 'neurofibro':neurofibro,
                'huntingron':huntingron, 'osteogenesis':osteogenesis,
-               'peutzsd':peutzsd,
-               'colorblindness':colorblindness, 'main':main}
+               'peutzsd':peutzsd,'hemophilia':hemophilia,
+               'g6pd':g6pd, 'duchenne':duchenne,
+               'hypohidro':hypohidro, 'colorblindness':colorblindness}
         if value in dic:
             self.value = dic[value]
         else:
@@ -150,8 +151,8 @@ class Family(object):
             autosomerecessive(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
         elif self.code == 'AD':
             autosomedominant(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
-        else:
-            print 'h'
+        elif self.code == 'XL':
+            xlink(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
 
 class Result(object):
     def __init__(self, root ,baby, name, code):
@@ -174,6 +175,11 @@ class Result(object):
     
         yourbaby = Print(self.root, self.predict(), row=1, column=0)
 
+        image = Image.open('backbutton.png')
+        back_image = ImageTk.PhotoImage(image)
+        back_button = tk.Button(self.root,command=self.back,image=back_image,border=2).grid(row=2, column=0)
+        back_button.place()
+
     def predict(self, per=25):
         if self.code == 'AR':
             didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
@@ -190,6 +196,11 @@ class Result(object):
             string += didic[item] + '     ' + str(self.baby[item] * per) + '%' + '\n'
         string += '***it only probability***'
         return string
+
+    def back(self):
+        self.root.destroy()
+        self.root = tk.Tk()
+        app = App()
         
 def bloodtype():
     root.destroy()
@@ -241,13 +252,16 @@ def process():
 def cross(male, female, code, re):
     if code == 'AR':
         gtab = {'D':'aa', 'C':'Aa', 'N': 'AA'}
-    #edit
     elif code == 'AD':
         gtab = {'N':'aa', 'D': 'AA', 'C':'Aa'}
-    else:
-        'wait'
+    elif code == 'XL':
+        gtabmale = {'N':'XY', 'D':'Yx'}
+        gtabfemale = {'N':'XX', 'C':'Xx', 'D':'xx'}
     genotype = dict()
-    male, female = gtab[male], gtab[female]
+    if code == 'XL':
+        male, female = gtabmale[male], gtabfemale[female]
+    else:
+        male, female = gtab[male], gtab[female]
     for s in male:
         for e in female:
             geno = [s, e]
@@ -268,12 +282,20 @@ def cross(male, female, code, re):
                 return 'N'
         else:
             return genotype
-    if code == 'AD':
+    elif code == 'AD':
         if re == 'check':
             if 'AA' in genotype:
                 return 'D'
             else:
                 return 'C'
+        else:
+            return genotype
+    elif code == 'XL':
+        if re == 'check':
+            if 'Xx' in genotype:
+                return 'C'
+            else:
+                return 'N'
         else:
             return genotype
 def autosomerecessive(root, poo, yaa, taa, yay, dad, mom, code, name):
@@ -353,8 +375,18 @@ def peutzsd():
 def colorblindness():
     color = Family(root, 'Color Blindness', 'XL')
 
+def hemophilia():
+    hemo = Family(root, 'Hemophilia', 'XL')
 
-#main gui    
+def g6pd():
+    g6pd = Family(root, 'G-6-PD deficieccy', 'XL')
+
+def duchenne():
+    duch = Family(root, "Duchenne's muscular dystrophy", 'XL')
+
+def hypohidro():
+    hypo = Family(root, "Hypohidrotic ectodermal dysplasia", 'XL')
+
 root = tk.Tk()
 root.geometry("430x600+300+300")
 image = Image.open('bg.jpg')
@@ -362,31 +394,37 @@ tkimage = ImageTk.PhotoImage(image)
 bg = tk.Label(root, image = tkimage)
 bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-def main():
-    '''screen'''
-    bloodgroup = Built_Button(root, 'Blood Type', 'bloodtype', row=1, column=7)
-    
-    ar = tk.Label(root, text='Autosome Recessive').grid(row=2, column=7)
-    thalassemia = Built_Button(root, 'Thalassemia', 'thalassemia', row=3, column=7)
-    galac = Built_Button(root, 'Galactosemia', 'galactosemia', row=4, column=7)
-    cystic = Built_Button(root, 'Cystic Fibrosis', 'cysticfibrosis', row=5, column=7)
-    phenyl = Built_Button(root, 'Phenylketoneuria', 'phenylketoneuria', row=6, column=7)
-    glyco = Built_Button(root, 'Glycogen Storage Disease', 'glycogen', row=7, column=7)
-    albinism = Built_Button(root, 'Albinism', 'albinism', row=8, column=7)
+class App():
+    def __init__(self):
+        self.root = root
+        self.main()
+    def main(self):
+        '''screen'''
+        bloodgroup = Built_Button(self.root, 'Blood Type', 'bloodtype', row=1, column=7)
+        
+        ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').grid(row=2, column=7)
+        thalassemia = Built_Button(self.root, 'Thalassemia', 'thalassemia', row=3, column=7)
+        galac = Built_Button(self.root, 'Galactosemia', 'galactosemia', row=4, column=7)
+        cystic = Built_Button(self.root, 'Cystic Fibrosis', 'cysticfibrosis', row=5, column=7)
+        phenyl = Built_Button(self.root, 'Phenylketoneuria', 'phenylketoneuria', row=6, column=7)
+        glyco = Built_Button(self.root, 'Glycogen Storage Disease', 'glycogen', row=7, column=7)
+        albinism = Built_Button(self.root, 'Albinism', 'albinism', row=8, column=7)
 
-    ad = tk.Label(root, text='Autosome Dominant').grid(row=9, column=7)
-    acon = Built_Button(root, 'Acondroplasia', 'acondroplasia', row=10, column=7)
-    marfan = Built_Button(root, 'Marfan Syndrome', 'marfansd', row=11, column=7)
-    neuro = Built_Button(root, 'Neurofibromatosis', 'neurofibro', row=12, column=7)
-    hunti = Built_Button(root, "Huntingron's chorea", 'huntingron', row=13, column=7)
-    osteo = Built_Button(root, 'Osteogenesis imperfecta(OI)', 'osteogenesis', row=14, column=7)
-    peut = Built_Button(root, 'Peutz syndrome', 'peutzsd', row=15, column=7)
-    
-    xlink = tk.Label(root, text='X-link Recessive').grid(row=16, column=7)
-    color = Built_Button(root, 'Color Blindness', 'colorblindness', row=17, column=7)
-    
-
-
-main()
+        ad = tk.Label(self.root, text='AUTOSOME DOMINANT').grid(row=9, column=7)
+        acon = Built_Button(self.root, 'Acondroplasia', 'acondroplasia', row=10, column=7)
+        marfan = Built_Button(self.root, 'Marfan Syndrome', 'marfansd', row=11, column=7)
+        neuro = Built_Button(self.root, 'Neurofibromatosis', 'neurofibro', row=12, column=7)
+        hunti = Built_Button(self.root, "Huntingron's chorea", 'huntingron', row=13, column=7)
+        osteo = Built_Button(self.root, 'Osteogenesis imperfecta(OI)', 'osteogenesis', row=14, column=7)
+        peut = Built_Button(self.root, 'Peutz syndrome', 'peutzsd', row=15, column=7)
+        
+        xlink = tk.Label(self.root, text='X-LINKED RECESSIVE').grid(row=16, column=7)
+        color = Built_Button(self.root, 'Color Blindness', 'colorblindness', row=17, column=7)
+        hemo = Built_Button(self.root, 'Hemophilia', 'hemophilia', row=18, column=7)
+        g6pd = Built_Button(self.root, 'G-6-PD deficieccy', 'g6pd', row=19, column=7)
+        duch = Built_Button(self.root, "Duchenne's muscular dystrophy", 'duchenne', row=20, column=7)
+        hypo = Built_Button(self.root, "Hypohidrotic ectodermal dysplasia", 'hypohidro', row=21, column=7)
+root = App()
 root.mainloop()
+
         
