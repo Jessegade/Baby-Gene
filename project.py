@@ -26,7 +26,7 @@ class Home(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         bdg = semia = lambda : Family(self.root,'Blood Group', 'BD')
-        bloodgroup = tk.Button(self.root, text='Blood Type', command=bdg).place(x=180,y=112)
+        bloodgroup = tk.Button(self.root, text='Blood Group', command=bdg).place(x=180,y=112)
 
         ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
         semia = lambda : Family(self.root,'Thalassemia', 'AR')
@@ -266,15 +266,20 @@ class Family(object):
                 if 'Ai' in genotype:
                     return 'Ai'
                 elif 'Bi' in genotype:
-                    return 'Bi'  
+                    return 'Bi'
+                elif 'AA' or 'BB' in genotype:
+                    return genotype.keys()[0]
             else:
                 return genotype
     def blood(self, root):
         print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
-        if self.dad == 'AA' or self.dad == 'BB':
+        if (self.dad == 'AA' and (self.poo != 'AB' and self.yaa != 'AB')) or \
+            (self.dad == 'BB' and (self.poo != 'AB' and self.yaa != 'AB')):
             self.dad = self.cross(self.poo, self.yaa, self.code, 'check')
+            
         print self.dad
-        if self.mom == 'AA' or self.mom == 'BB':
+        if (self.mom == 'AA' and (self.taa != 'AB' and self.yay != 'AB')) or \
+            (self.mom == 'BB' and (self.taa != 'AB' and self.yay != 'AB')):
             self.mom =  self.cross(self.taa, self.yay, self.code, 'check')
         print self.mom
         baby = baby = self.cross(self.dad, self.mom, self.code, 'baby')
@@ -429,6 +434,6 @@ def process():
     tkMessageBox.showinfo('Result',' or '.join(group[mom_and_dad]))
     
 root = tk.Tk()
-
+root.title("Baby Gene")
 app = Home(root)
 root.mainloop()
