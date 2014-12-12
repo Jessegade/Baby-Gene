@@ -17,15 +17,16 @@ import tkMessageBox
 class Home(object):
     def __init__(self,root):
         self.root = root
-        self.eiei()
+        self.main()
 
-    def eiei(self):
+    def main(self):
         self.root.geometry("430x650")
         image = Image.open('bg.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
-        bloodgroup = tk.Button(self.root, text='Blood Type', command=bloodtype).place(x=180,y=112)
+        bdg = semia = lambda : Family(self.root,'Blood Group', 'BD')
+        bloodgroup = tk.Button(self.root, text='Blood Type', command=bdg).place(x=180,y=112)
 
         ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
         semia = lambda : Family(self.root,'Thalassemia', 'AR')
@@ -122,6 +123,37 @@ class Family(object):
             self.mom.set('NORMAL')
             mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=13, column=2)
 
+        elif self.code == 'BD':
+            poo_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=1)
+            self.poo = tk.StringVar(self.root)
+            self.poo.set('A')
+            poo_type = tk.OptionMenu(self.root, self.poo, 'A', 'B', 'AB', 'O').grid(row=5, column=1)
+
+            yaa_show = tk.Label(self.root, text="Grandmother").grid(row=4, column=3)
+            self.yaa = tk.StringVar(self.root)
+            self.yaa.set('A')
+            yaa_type = tk.OptionMenu(self.root, self.yaa, 'A', 'B', 'AB', 'O').grid(row=5, column=3)
+
+            taa_show = tk.Label(self.root, text="Grandfather").grid(row=10, column=1)
+            self.taa = tk.StringVar(self.root)
+            self.taa.set('A')
+            taa_type = tk.OptionMenu(self.root, self.taa, 'A', 'B', 'AB', 'O').grid(row=11, column=1)
+
+            yay_show = tk.Label(self.root, text="Grandmother").grid(row=10, column=3)
+            self.yay = tk.StringVar(self.root)
+            self.yay.set('A')
+            yay_type = tk.OptionMenu(self.root, self.yay, 'A', 'B', 'AB', 'O').grid(row=11, column=3)
+
+            dad_show = tk.Label(self.root, text="Father").grid(row=7, column=2)
+            self.dad = tk.StringVar(self.root)
+            self.dad.set('A')
+            dad_type = tk.OptionMenu(self.root, self.dad, 'A', 'B', 'AB', 'O').grid(row=8, column=2)
+
+            mom_show = tk.Label(self.root, text="Mother").grid(row=12, column=2)
+            self.mom = tk.StringVar(self.root)
+            self.mom.set('A')
+            mom_type = tk.OptionMenu(self.root, self.mom, 'A', 'B', 'AB', 'O').grid(row=13, column=2)
+            
         else:
             poo_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=1)
             self.poo = tk.StringVar(self.root)
@@ -166,7 +198,7 @@ class Family(object):
         self.root.mainloop()
         
     def bus(self):
-        st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C'}
+        st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C', 'A':'AA', 'B':'BB', 'AB':'AB', 'O':'ii'}
         self.poo, self.yaa, self.dad = st[self.poo.get()], st[self.yaa.get()], st[self.dad.get()]
         self.taa, self.yay, self.mom = st[self.taa.get()], st[self.yay.get()], st[self.mom.get()]
         if self.code == 'AR':
@@ -175,6 +207,8 @@ class Family(object):
             self.autosomedominant(self.root)
         elif self.code == 'XL':
             self.xlink(self.root)
+        elif self.code == 'BD':
+            self.blood(self.root)     
 
     def cross(self, male, female, code, re):
         if code == 'AR':
@@ -184,6 +218,8 @@ class Family(object):
         elif code == 'XL':
             gtabmale = {'N':'XY', 'D':'Yx'}
             gtabfemale = {'N':'XX', 'C':'Xx', 'D':'xx'}
+        elif code == 'BD':
+            gtab = {'AA':'AA', 'Ai':'Ai', 'BB':'BB', 'Bi':'Bi', 'AB':'AB', 'ii':'ii'}
         genotype = dict()
         if code == 'XL':
             male, female = gtabmale[male], gtabfemale[female]
@@ -225,6 +261,25 @@ class Family(object):
                     return 'N'
             else:
                 return genotype
+        elif code == 'BD':
+            if re == 'check':
+                if 'Ai' in genotype:
+                    return 'Ai'
+                elif 'Bi' in genotype:
+                    return 'Bi'  
+            else:
+                return genotype
+    def blood(self, root):
+        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        if self.dad == 'AA' or self.dad == 'BB':
+            self.dad = self.cross(self.poo, self.yaa, self.code, 'check')
+        print self.dad
+        if self.mom == 'AA' or self.mom == 'BB':
+            self.mom =  self.cross(self.taa, self.yay, self.code, 'check')
+        print self.mom
+        baby = baby = self.cross(self.dad, self.mom, self.code, 'baby')
+        print_result = Result(root, baby, self.name, self.code)
+        
     def autosomerecessive(self, root):
         print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
         if self.dad == 'N':
@@ -294,9 +349,13 @@ class Result(object):
         elif self.code == 'AD':
             didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
         elif self.code == 'XL':
-            didic= {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
+            didic = {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
                     'XX':' Normal Daughter', 'Xx':' Normal(carrier) Daughter',
                     'xx':self.name +' Diseased Daughter'}
+        elif self.code == 'BD':
+            didic = {'AA':'A Homozygous(pure)', 'Ai':'A Heterozygous(hybrid)',
+                     'BB':'B Homozygous(pure)', 'Bi':'B Heterozygous(hybrid)',
+                     'AB':'AB Homozygous(pure)', 'ii':'O Homozygous(pure)'}
         string = "\nyour baby's gene is \n\n"
         if self.code == 'XL':
             son, daughter = list(), list()
