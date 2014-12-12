@@ -14,42 +14,6 @@ import Tkinter as tk
 from PIL import ImageTk, Image
 import tkMessageBox
 
-
-class Print(object):
-    '''
-    input
-    Print(root, text, row, column)
-    '''
-    def __init__(self, root, text, row, column):
-        self.text = text
-        self.row = row
-        self.column = column
-        self.label = tk.Label(root, text=text)
-        self.label.grid(row=self.row, column=self.column)
-
-class Built_Button(object):
-    '''
-    input
-    Built_Button(root, text, value, row, column)
-    '''
-    def __init__(self, root, text, value, row, column):
-        self.root = root
-        dic = {'bloodtype':bloodtype, 'thalassemia':thalassemia,
-               'galactosemia':galactosemia, 'cysticfibrosis':cysticfibrosis,
-               'phenylketoneuria':phenylketoneuria, 'glycogen':glycogen,
-               'albinism':albinism, 'acondroplasia':acondroplasia,
-               'marfansd':marfansd, 'neurofibro':neurofibro,
-               'huntingron':huntingron, 'osteogenesis':osteogenesis,
-               'peutzsd':peutzsd,'hemophilia':hemophilia,
-               'g6pd':g6pd, 'duchenne':duchenne,
-               'hypohidro':hypohidro, 'colorblindness':colorblindness}
-        if value in dic:
-            self.value = dic[value]
-        else:
-            self.value = value
-        self.button = tk.Button(self.root, text=text, command=self.value)
-        self.button.grid(row=row, column=column)
-
 class Family(object):
     '''
     input
@@ -60,7 +24,7 @@ class Family(object):
         self.root = root
         self.code = code
         self.tree()
-    
+        
 
     def tree(self):
         self.root.destroy()
@@ -138,21 +102,104 @@ class Family(object):
             self.mom.set('NORMAL')
             mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED').grid(row=13, column=2)
     
-        image = Image.open('processbutton.png')
-        process_image = ImageTk.PhotoImage(image)
+        process_image = ImageTk.PhotoImage(Image.open('processbutton.png'))
         process_button = tk.Button(self.root,command=self.bus,image=process_image,border=2).grid(row=14, column=2)
         process_button.place()
         
     def bus(self):
         st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C'}
-        poo, yaa, dad = st[self.poo.get()], st[self.yaa.get()], st[self.dad.get()]
-        taa, yay, mom = st[self.taa.get()], st[self.yay.get()], st[self.mom.get()]
+        self.poo, self.yaa, self.dad = st[self.poo.get()], st[self.yaa.get()], st[self.dad.get()]
+        self.taa, self.yay, self.mom = st[self.taa.get()], st[self.yay.get()], st[self.mom.get()]
         if self.code == 'AR':
-            autosomerecessive(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
+            self.autosomerecessive(self.root)
         elif self.code == 'AD':
-            autosomedominant(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
+            self.autosomedominant(self.root)
         elif self.code == 'XL':
-            xlink(self.root, poo, yaa, taa, yay, dad, mom, self.code, self.name)
+            self.xlink(self.root)
+
+    def cross(self, male, female, code, re):
+        if code == 'AR':
+            gtab = {'D':'aa', 'C':'Aa', 'N': 'AA'}
+        elif code == 'AD':
+            gtab = {'N':'aa', 'D': 'AA', 'C':'Aa'}
+        elif code == 'XL':
+            gtabmale = {'N':'XY', 'D':'Yx'}
+            gtabfemale = {'N':'XX', 'C':'Xx', 'D':'xx'}
+        genotype = dict()
+        if code == 'XL':
+            male, female = gtabmale[male], gtabfemale[female]
+        else:
+            male, female = gtab[male], gtab[female]
+        for s in male:
+            for e in female:
+                geno = [s, e]
+                geno.sort()
+                geno = geno[0] + geno[1]
+                if geno in genotype:
+                    genotype[geno] += 1
+                else:
+                    genotype[geno] = 1
+        print genotype
+        if code == 'AR':
+            if re == 'check':
+                if 'aa' in genotype:
+                    return 'D'
+                elif 'Aa' in genotype:
+                    return 'C'
+                else:
+                    return 'N'
+            else:
+                return genotype
+        elif code == 'AD':
+            if re == 'check':
+                if 'AA' in genotype:
+                    return 'D'
+                else:
+                    return 'C'
+            else:
+                return genotype
+        elif code == 'XL':
+            if re == 'check':
+                if 'Xx' in genotype:
+                    return 'C'
+                else:
+                    return 'N'
+            else:
+                return genotype
+    def autosomerecessive(self, root):
+        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        if self.dad == 'N':
+            self.dad = self.cross(self.poo, self.yaa, self.code, 'check')
+            if self.dad == 'D':
+                self.dad = 'C'
+        print self.dad
+        if self.mom == 'N':
+            self.mom = self.cross(self.taa, self.yay, self.code, 'check')
+            if self.mom == 'D':
+                self.mom = 'C'
+        print self.mom
+        baby = self.cross(self.dad, self.mom, self.code, 'baby')
+        print_result = Result(root, baby, self.name, self.code)
+
+    def autosomedominant(self, root):
+        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        if self.dad == 'D':
+            self.dad = self.cross(self.poo, self.yaa, self.code, 'check')
+        print self.dad
+        if self.mom == 'D':
+            self.mom = self.cross(self.taa, self.yay, self.code, 'check')
+        print self.mom
+        baby = self.cross(self.dad, self.mom, self.code, 'baby')
+        print_result = Result(root, baby, self.name, self.code)
+
+    def xlink(self, root):
+        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        if self.mom == 'N':
+            self.mom = self.cross(self.taa, self.yay, self.code, 'check')
+        print self.dad
+        print self.mom
+        baby = self.cross(self.dad, self.mom, self.code, 'baby')
+        print_result = Result(root, baby, self.name, self.code)
 
 class Result(object):
     def __init__(self, root ,baby, name, code):
@@ -171,9 +218,9 @@ class Result(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
-        head = Print(self.root, self.name.upper(), row=0, column=0)
+        head = tk.Label(self.root, text=self.name.upper()).grid(row=0, column=0)
     
-        yourbaby = Print(self.root, self.predict(), row=1, column=0)
+        yourbaby = tk.Label(self.root, text=self.predict()).grid(row=1, column=0)
 
         image = Image.open('backbutton.png')
         back_image = ImageTk.PhotoImage(image)
@@ -212,8 +259,7 @@ class Result(object):
 
     def back(self):
         self.root.destroy()
-        app = App()
-        
+        main()
 def bloodtype():
     root.destroy()
     win1 = tk.Tk()
@@ -260,145 +306,7 @@ def process():
              'BO': ['B 50%', 'O 50%'], \
              'OB': ['B 50%', 'O 50%']}
     tkMessageBox.showinfo('Result',' or '.join(group[mom_and_dad]))
-
-def cross(male, female, code, re):
-    if code == 'AR':
-        gtab = {'D':'aa', 'C':'Aa', 'N': 'AA'}
-    elif code == 'AD':
-        gtab = {'N':'aa', 'D': 'AA', 'C':'Aa'}
-    elif code == 'XL':
-        gtabmale = {'N':'XY', 'D':'Yx'}
-        gtabfemale = {'N':'XX', 'C':'Xx', 'D':'xx'}
-    genotype = dict()
-    if code == 'XL':
-        male, female = gtabmale[male], gtabfemale[female]
-    else:
-        male, female = gtab[male], gtab[female]
-    for s in male:
-        for e in female:
-            geno = [s, e]
-            geno.sort()
-            geno = geno[0] + geno[1]
-            if geno in genotype:
-                genotype[geno] += 1
-            else:
-                genotype[geno] = 1
-    print genotype
-    if code == 'AR':
-        if re == 'check':
-            if 'aa' in genotype:
-                return 'D'
-            elif 'Aa' in genotype:
-                return 'C'
-            else:
-                return 'N'
-        else:
-            return genotype
-    elif code == 'AD':
-        if re == 'check':
-            if 'AA' in genotype:
-                return 'D'
-            else:
-                return 'C'
-        else:
-            return genotype
-    elif code == 'XL':
-        if re == 'check':
-            if 'Xx' in genotype:
-                return 'C'
-            else:
-                return 'N'
-        else:
-            return genotype
-def autosomerecessive(root, poo, yaa, taa, yay, dad, mom, code, name):
-    print poo, yaa, taa, yay, dad, mom, code
-    if dad == 'N':
-        dad = cross(poo, yaa, code, 'check')
-        if dad == 'D':
-            dad = 'C'
-    print dad
-    if mom == 'N':
-        mom = cross(taa, yay, code, 'check')
-        if mom == 'D':
-            mom = 'C'
-    print mom
-    baby = cross(dad, mom, code, 'baby')
-    print_result = Result(root, baby, name, code)
-
-def autosomedominant(root, poo, yaa, taa, yay, dad, mom, code, name):
-    print poo, yaa, taa, yay, dad, mom, code
-    if dad == 'D':
-        dad = cross(poo, yaa, code, 'check')
-    print dad
-    if mom == 'D':
-        mom = cross(taa, yay, code, 'check')
-    print mom
-    baby = cross(dad, mom, code, 'baby')
-    print_result = Result(root, baby, name, code)
-
-def xlink(root, poo, yaa, taa, yay, dad, mom, code, name):
-    print poo, yaa, taa, yay, dad, mom, code
-    if mom == 'N':
-        mom = cross(taa, yay, code, 'check')
-    print dad
-    print mom
-    baby = cross(dad, mom, code, 'baby')
-    print_result = Result(root, baby, name, code)
     
-#Autosome Recessive Disease  
-def thalassemia():
-    thala = Family(root, 'Thalassemia', 'AR')
-
-def galactosemia():
-    galac = Family(root, 'Galactosemia', 'AR')
-
-def cysticfibrosis():
-    cystic = Family(root, 'Galactosemia', 'AR')
-
-def phenylketoneuria():
-    phenyl = Family(root, 'Phenylketoneuria', 'AR')
-
-def glycogen():
-    glyco = Family(root, 'Glycogen Storage Disease', 'AR')
-
-def albinism():
-    albinism = Family(root, 'Albinism', 'AR')
-
-#Autosome Dominant Disease
-def acondroplasia():
-    acon = Family(root, 'Acondroplasia', 'AD')
-
-def marfansd():
-    marfan = Family(root, 'Marfan Syndrome', 'AD')
-
-def neurofibro():
-    neuro = Family(root, 'Neurofibromatosis', 'AD')
-
-def huntingron():
-    hunti = Family(root, "Huntingron's chorea", 'AD')
-
-def osteogenesis():
-    osteo = Family(root, 'Osteogenesis imperfecta(OI)', 'AD')
-
-def peutzsd():
-    peut = (root, 'Peutz syndrome', 'AD')
-
-#X-linked recessive
-def colorblindness():
-    color = Family(root, 'Color Blindness', 'XL')
-
-def hemophilia():
-    hemo = Family(root, 'Hemophilia', 'XL')
-
-def g6pd():
-    g6pd = Family(root, 'G-6-PD deficieccy', 'XL')
-
-def duchenne():
-    duch = Family(root, "Duchenne's muscular dystrophy", 'XL')
-
-def hypohidro():
-    hypo = Family(root, "Hypohidrotic ectodermal dysplasia", 'XL')
-
 root = tk.Tk()
 root.geometry("430x650+300+300")
 image = Image.open('bg.jpg')
@@ -406,36 +314,45 @@ tkimage = ImageTk.PhotoImage(image)
 bg = tk.Label(root, image = tkimage)
 bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-class App(object):
-    def __init__(self):
-        self.root = root
-        self.main()
-    def main(self):
-        '''screen'''
-        bloodgroup = tk.Button(self.root, text='Blood Type', command=bloodtype).place(x=180,y=112)
+def main():
+    '''screen'''
+    bloodgroup = tk.Button(root, text='Blood Type', command=bloodtype).place(x=180,y=112)
 
-        ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
-        thalas = tk.Button(root, text='Thalassemia', command=thalassemia).place(x=177,y=165)
-        galac = tk.Button(self.root, text='Galactosemia', command=galactosemia).place(x=173,y=191)
-        cystic = tk.Button(self.root, text='Cystic Fibrosis', command=cysticfibrosis).place(x=171,y=217)
-        phenyl = tk.Button(self.root, text='Phenylketoneuria', command=phenylketoneuria).place(x=163,y=243)
-        glyco = tk.Button(self.root, text='Glycogen Storage Disease', command=glycogen).place(x=144,y=269)
-        albin = tk.Button(self.root, text='Albinism', command=albinism).place(x=188,y=295)
+    ar = tk.Label(root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
+    semia = lambda : Family(root,'Thalassemia', 'AR')
+    thalas = tk.Button(root, text='Thalassemia', command=semia).place(x=177,y=165)
+    tose = lambda : Family(root, 'Galactosemia', 'AR')
+    galac = tk.Button(root, text='Galactosemia', command=tose).place(x=173,y=191)
+    sis = lambda : Family(root, 'Cystic Fibrosis', 'AR')
+    cystic = tk.Button(root, text='Cystic Fibrosis', command=sis).place(x=171,y=217)
+    #phenyl = tk.Button(root, text='Phenylketoneuria', command=phenylketoneuria).place(x=163,y=243)
+    #glyco = tk.Button(root, text='Glycogen Storage Disease', command=glycogen).place(x=144,y=269)
+    alb = lambda : Family(root, 'Albinism', 'AR')
+    albin = tk.Button(root, text='Albinism', command=alb).place(x=188,y=243)
 
-        ad = tk.Label(self.root, text='AUTOSOME DOMINANT').place(x=150,y=328)
-        acon = tk.Button(self.root, text='Acondroplasia', command=acondroplasia).place(x=173,y=348)
-        marfan = tk.Button(self.root, text='Marfan Syndrome', command=marfansd).place(x=163,y=374)
-        neuro = tk.Button(self.root, text='Neurofibromatosis', command=neurofibro).place(x=161,y=400)
-        hunti = tk.Button(self.root, text="Huntingron's chorea", command=huntingron).place(x=156,y=426)
-        osteo = tk.Button(self.root, text='Osteogenesis imperfecta(OI)', command=osteogenesis).place(x=136,y=452)
-        peut = tk.Button(self.root, text='Peutz syndrome', command=peutzsd).place(x=170,y=478)
-        
-        xlink = tk.Label(self.root, text='X-LINKED RECESSIVE').place(x=160,y=511)
-        color = tk.Button(self.root, text='Color Blindness', command=colorblindness).place(x=172,y=537)
-        hemo = tk.Button(self.root, text='Hemophilia', command=hemophilia).place(x=180,y=563)
-        g6 = tk.Button(self.root, text='G-6-PD deficieccy', command=g6pd).place(x=166,y=589)
-        duch = tk.Button(self.root, text="Duchenne's muscular dystrophy", command=duchenne).place(x=126,y=615)
-        hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=hypohidro).place(x=118,y=641)
+    ad = tk.Label(root, text='AUTOSOME DOMINANT').place(x=150,y=276)
+    asia = lambda : Family(root, 'Acondroplasia', 'AD')
+    acon = tk.Button(root, text='Acondroplasia', command=asia).place(x=173,y=302)
+    ome = lambda : Family(root, 'Marfan Syndrome', 'AD')
+    marfan = tk.Button(root, text='Marfan Syndrome', command=ome).place(x=163,y=328)
+    mato = lambda : Family(root, 'Neurofibromatosis', 'AD')
+    neuro = tk.Button(root, text='Neurofibromatosis', command=mato).place(x=161,y=354)
+    rea = lambda : Family(root, "Huntingron's chorea", 'AD')
+    hunti = tk.Button(root, text="Huntingron's chorea", command=rea).place(x=156,y=380)
+    #osteo = tk.Button(root, text='Osteogenesis imperfecta(OI)', command=osteogenesis).place(x=136,y=452)
+    #peut = tk.Button(root, text='Peutz syndrome', command=peutzsd).place(x=170,y=478)
+    
+    xlink = tk.Label(root, text='X-LINKED RECESSIVE').place(x=160,y=413)
+    ness = lambda : Family(root, 'Color Blindness', 'XL')
+    color = tk.Button(root, text='Color Blindness', command=ness).place(x=172,y=439)
+    lia = lambda : Family(root, 'Hemophilia', 'XL')
+    hemo = tk.Button(root, text='Hemophilia', command=lia).place(x=180,y=465)
+    pd = lambda : Family(root, 'G-6-PD deficieccy', 'XL')
+    g6 = tk.Button(root, text='G-6-PD deficieccy', command=pd).place(x=166,y=491)
+    nne = lambda : Family(root, "Duchenne's muscular dystrophy", 'XL')
+    duch = tk.Button(root, text="Duchenne's muscular dystrophy", command=nne).place(x=126,y=517)
+    dro = lambda : Family(root, "Hypohidrotic ectodermal dysplasia", 'XL')
+    hypo = tk.Button(root, text="Hypohidrotic ectodermal dysplasia", command=dro).place(x=118,y=543)
 
-app = App()
+main()
 root.mainloop()
