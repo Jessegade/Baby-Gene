@@ -14,6 +14,57 @@ import Tkinter as tk
 from PIL import ImageTk, Image
 import tkMessageBox
 
+class Home(object):
+    def __init__(self,root):
+        self.root = root
+        self.eiei()
+
+    def eiei(self):
+        self.root.geometry("430x650")
+        image = Image.open('bg.jpg')
+        tkimage = ImageTk.PhotoImage(image)
+        bg = tk.Label(self.root, image = tkimage)
+        bg.place(x=0, y=0, relwidth=1, relheight=1)
+        bloodgroup = tk.Button(self.root, text='Blood Type', command=bloodtype).place(x=180,y=112)
+
+        ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
+        semia = lambda : Family(self.root,'Thalassemia', 'AR')
+        thalas = tk.Button(self.root, text='Thalassemia', command=semia).place(x=177,y=165)
+        tose = lambda : Family(self.root, 'Galactosemia', 'AR')
+        galac = tk.Button(self.root, text='Galactosemia', command=tose).place(x=173,y=191)
+        sis = lambda : Family(self.root, 'Cystic Fibrosis', 'AR')
+        cystic = tk.Button(self.root, text='Cystic Fibrosis', command=sis).place(x=171,y=217)
+        #phenyl = tk.Button(self.root, text='Phenylketoneuria', command=phenylketoneuria).place(x=163,y=243)
+        #glyco = tk.Button(self.root, text='Glycogen Storage Disease', command=glycogen).place(x=144,y=269)
+        alb = lambda : Family(self.root, 'Albinism', 'AR')
+        albin = tk.Button(self.root, text='Albinism', command=alb).place(x=188,y=243)
+
+        ad = tk.Label(self.root, text='AUTOSOME DOMINANT').place(x=150,y=276)
+        asia = lambda : Family(self.root, 'Acondroplasia', 'AD')
+        acon = tk.Button(self.root, text='Acondroplasia', command=asia).place(x=173,y=302)
+        ome = lambda : Family(self.root, 'Marfan Syndrome', 'AD')
+        marfan = tk.Button(self.root, text='Marfan Syndrome', command=ome).place(x=163,y=328)
+        mato = lambda : Family(self.root, 'Neurofibromatosis', 'AD')
+        neuro = tk.Button(self.root, text='Neurofibromatosis', command=mato).place(x=161,y=354)
+        rea = lambda : Family(self.root, "Huntingron's chorea", 'AD')
+        hunti = tk.Button(self.root, text="Huntingron's chorea", command=rea).place(x=156,y=380)
+        #osteo = tk.Button(self.root, text='Osteogenesis imperfecta(OI)', command=osteogenesis).place(x=136,y=452)
+        #peut = tk.Button(self.root, text='Peutz syndrome', command=peutzsd).place(x=170,y=478)
+        
+        xlink = tk.Label(self.root, text='X-LINKED RECESSIVE').place(x=160,y=413)
+        ness = lambda : Family(self.root, 'Color Blindness', 'XL')
+        color = tk.Button(self.root, text='Color Blindness', command=ness).place(x=172,y=439)
+        lia = lambda : Family(self.root, 'Hemophilia', 'XL')
+        hemo = tk.Button(self.root, text='Hemophilia', command=lia).place(x=180,y=465)
+        pd = lambda : Family(self.root, 'G-6-PD deficieccy', 'XL')
+        g6 = tk.Button(self.root, text='G-6-PD deficieccy', command=pd).place(x=166,y=491)
+        nne = lambda : Family(self.root, "Duchenne's muscular dystrophy", 'XL')
+        duch = tk.Button(self.root, text="Duchenne's muscular dystrophy", command=nne).place(x=126,y=517)
+        dro = lambda : Family(self.root, "Hypohidrotic ectodermal dysplasia", 'XL')
+        hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=dro).place(x=118,y=543)
+        
+        self.root.mainloop()
+        
 class Family(object):
     '''
     input
@@ -29,7 +80,7 @@ class Family(object):
     def tree(self):
         #self.root.destroy()
         #self.root = tk.Tk()
-        self.root.geometry("430x650+300+300")
+        self.root.geometry("430x650")
         image = Image.open('win1.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
@@ -220,7 +271,7 @@ class Result(object):
 ##        self.root.destroy()
 ##        self.root = tk.Tk()
         #edit error
-        self.root.geometry("430x650+300+300")
+        self.root.geometry("430x650")
         image = Image.open('win1.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
@@ -269,13 +320,13 @@ class Result(object):
 
     def back(self):
         #self.root.destroy()
-        main()
+        app = Home(self.root)
         
 def bloodtype():
     root.destroy()
     win1 = tk.Tk()
     win1.title('Blood Type')
-    win1.geometry("430x650+300+300")
+    win1.geometry("430x650")
     image = Image.open('win1.jpg')
     tkimage = ImageTk.PhotoImage(image)
     bg = tk.Label(win1, image = tkimage)
@@ -319,51 +370,6 @@ def process():
     tkMessageBox.showinfo('Result',' or '.join(group[mom_and_dad]))
     
 root = tk.Tk()
-root.geometry("430x650+300+300")
-image = Image.open('bg.jpg')
-tkimage = ImageTk.PhotoImage(image)
-bg = tk.Label(root, image = tkimage)
-bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-def main():
-    '''screen'''
-    bloodgroup = tk.Button(root, text='Blood Type', command=bloodtype).place(x=180,y=112)
-
-    ar = tk.Label(root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
-    semia = lambda : Family(root,'Thalassemia', 'AR')
-    thalas = tk.Button(root, text='Thalassemia', command=semia).place(x=177,y=165)
-    tose = lambda : Family(root, 'Galactosemia', 'AR')
-    galac = tk.Button(root, text='Galactosemia', command=tose).place(x=173,y=191)
-    sis = lambda : Family(root, 'Cystic Fibrosis', 'AR')
-    cystic = tk.Button(root, text='Cystic Fibrosis', command=sis).place(x=171,y=217)
-    #phenyl = tk.Button(root, text='Phenylketoneuria', command=phenylketoneuria).place(x=163,y=243)
-    #glyco = tk.Button(root, text='Glycogen Storage Disease', command=glycogen).place(x=144,y=269)
-    alb = lambda : Family(root, 'Albinism', 'AR')
-    albin = tk.Button(root, text='Albinism', command=alb).place(x=188,y=243)
-
-    ad = tk.Label(root, text='AUTOSOME DOMINANT').place(x=150,y=276)
-    asia = lambda : Family(root, 'Acondroplasia', 'AD')
-    acon = tk.Button(root, text='Acondroplasia', command=asia).place(x=173,y=302)
-    ome = lambda : Family(root, 'Marfan Syndrome', 'AD')
-    marfan = tk.Button(root, text='Marfan Syndrome', command=ome).place(x=163,y=328)
-    mato = lambda : Family(root, 'Neurofibromatosis', 'AD')
-    neuro = tk.Button(root, text='Neurofibromatosis', command=mato).place(x=161,y=354)
-    rea = lambda : Family(root, "Huntingron's chorea", 'AD')
-    hunti = tk.Button(root, text="Huntingron's chorea", command=rea).place(x=156,y=380)
-    #osteo = tk.Button(root, text='Osteogenesis imperfecta(OI)', command=osteogenesis).place(x=136,y=452)
-    #peut = tk.Button(root, text='Peutz syndrome', command=peutzsd).place(x=170,y=478)
-    
-    xlink = tk.Label(root, text='X-LINKED RECESSIVE').place(x=160,y=413)
-    ness = lambda : Family(root, 'Color Blindness', 'XL')
-    color = tk.Button(root, text='Color Blindness', command=ness).place(x=172,y=439)
-    lia = lambda : Family(root, 'Hemophilia', 'XL')
-    hemo = tk.Button(root, text='Hemophilia', command=lia).place(x=180,y=465)
-    pd = lambda : Family(root, 'G-6-PD deficieccy', 'XL')
-    g6 = tk.Button(root, text='G-6-PD deficieccy', command=pd).place(x=166,y=491)
-    nne = lambda : Family(root, "Duchenne's muscular dystrophy", 'XL')
-    duch = tk.Button(root, text="Duchenne's muscular dystrophy", command=nne).place(x=126,y=517)
-    dro = lambda : Family(root, "Hypohidrotic ectodermal dysplasia", 'XL')
-    hypo = tk.Button(root, text="Hypohidrotic ectodermal dysplasia", command=dro).place(x=118,y=543)
-
-main()
+app = Home(root)
 root.mainloop()
