@@ -27,9 +27,9 @@ class Family(object):
         
 
     def tree(self):
-        self.root.destroy()
-        self.root = tk.Tk()
-        self.root.geometry("430x430+300+300")
+        #self.root.destroy()
+        #self.root = tk.Tk()
+        self.root.geometry("430x650+300+300")
         image = Image.open('win1.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
@@ -101,10 +101,18 @@ class Family(object):
             self.mom = tk.StringVar(self.root)
             self.mom.set('NORMAL')
             mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED').grid(row=13, column=2)
+
+##        image = Image.open('processbutton.png')
+##        process_image = ImageTk.PhotoImage(image)
+##        process_button = tk.Button(win1,command=process,image=process_image,border=0).grid(row=3, column=1)
+##        process_button.place()
+
     
         process_image = ImageTk.PhotoImage(Image.open('processbutton.png'))
-        process_button = tk.Button(self.root,command=self.bus,image=process_image,border=2).grid(row=14, column=2)
+        process_button = tk.Button(self.root,command=self.bus,image=process_image,border=2)#
+        process_button.grid(row=14, column=2)
         process_button.place()
+        self.root.mainloop()
         
     def bus(self):
         st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C'}
@@ -209,10 +217,10 @@ class Result(object):
         self.code = code
         self.print_gene()
     def print_gene(self):
-        self.root.destroy()
-        self.root = tk.Tk()
+##        self.root.destroy()
+##        self.root = tk.Tk()
         #edit error
-        self.root.geometry("430x430+300+300")
+        self.root.geometry("430x650+300+300")
         image = Image.open('win1.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
@@ -224,9 +232,11 @@ class Result(object):
 
         image = Image.open('backbutton.png')
         back_image = ImageTk.PhotoImage(image)
-        back_button = tk.Button(self.root,command=self.back,image=back_image,border=2).grid(row=2, column=0)
+        back_button = tk.Button(self.root,command=self.back,image=back_image,border=2)
+        
+        back_button.grid(row=2, column=0)
         back_button.place()
-
+        self.root.mainloop()
     def predict(self):
         if self.code == 'AR':
             didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
@@ -258,13 +268,14 @@ class Result(object):
         return string
 
     def back(self):
-        self.root.destroy()
+        #self.root.destroy()
         main()
+        
 def bloodtype():
     root.destroy()
     win1 = tk.Tk()
     win1.title('Blood Type')
-    win1.geometry("430x430+300+300")
+    win1.geometry("430x650+300+300")
     image = Image.open('win1.jpg')
     tkimage = ImageTk.PhotoImage(image)
     bg = tk.Label(win1, image = tkimage)
@@ -281,7 +292,7 @@ def bloodtype():
     dad = tk.StringVar(win1)
     dad.set('A')
     dad_type = tk.OptionMenu(win1, dad, 'A', 'B', 'AB', 'O').grid(row=2, column=1)
-    
+    ############
     image = Image.open('processbutton.png')
     process_image = ImageTk.PhotoImage(image)
     process_button = tk.Button(win1,command=process,image=process_image,border=0).grid(row=3, column=1)
