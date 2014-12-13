@@ -89,7 +89,7 @@ class Family(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-        diseasedname = tk.Label(self.root, text=self.name.upper(),justify='center').pack()
+        diseasedname = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
 
         global poo, yaa, taa, yay, dad, mom
 
@@ -366,13 +366,14 @@ class Result(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
-        self.head = tk.Label(self.root, text=self.name.upper(),justify='center').pack()
+        self.head = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
+
         picdisease = {'Thalassemia':"thalassemia.png", 'Galactosemia':"galac.png",
                       'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
                       'Achondroplasia':"achondro.png", 'Marfan Syndrome':"marfan.png",
                       'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
                       'Color Blindness':"color.png", 'Hemophilia':"hemophilia.png",
-                      'G-6-PD deficiency':"g6pd.png", "Duchenne's muscular dystrophy":"duchan.png",
+                      'G-6-PD deficiency':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
                       "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.jpg"}
         imagee = Image.open(picdisease[self.name])
         photo = ImageTk.PhotoImage(imagee)
