@@ -371,9 +371,9 @@ class Result(object):
                       'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
                       'Acondroplasia':"acondro.png", 'Marfan Syndrome':"marfan.png",
                       'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
-                      'Color Blindness':"color.png", 'Hemophilia':"hemophilia",
-                      'G-6-PD deficieccy':"g6pd.png", "Duchenne's muscular dystrophy":"duchan.png",
-                      "Hypohidrotic ectodermal dysplasia":"hypo.png"}
+                      'Color Blindness':"color.png", 'Hemophilia':"hemophilia.png",
+                      'G-6-PD deficieccy':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
+                      "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.png"}
         imagee = Image.open(picdisease[self.name])
         photo = ImageTk.PhotoImage(imagee)
         label = tk.Label(image=photo)
