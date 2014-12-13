@@ -21,48 +21,45 @@ class Home(object):
 
     def main(self):
         self.root.geometry("430x650")
+        self.root.title('Baby Gene')
         image = Image.open('bg.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         bdg = semia = lambda : Family(self.root,'Blood Group', 'BD')
-        bloodgroup = tk.Button(self.root, text='Blood Group', command=bdg).place(x=180,y=112)
+        bloodgroup = tk.Button(self.root, text='Blood Type', command=bdg, bg='white').place(x=180, y=112)
 
-        ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150,y=145)
+        ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150, y=145)
         semia = lambda : Family(self.root,'Thalassemia', 'AR')
-        thalas = tk.Button(self.root, text='Thalassemia', command=semia).place(x=177,y=165)
+        thalas = tk.Button(self.root, text='Thalassemia', command=semia, bg='white').place(x=177, y=165)
         tose = lambda : Family(self.root, 'Galactosemia', 'AR')
-        galac = tk.Button(self.root, text='Galactosemia', command=tose).place(x=173,y=191)
+        galac = tk.Button(self.root, text='Galactosemia', command=tose, bg='white').place(x=173, y=191)
         sis = lambda : Family(self.root, 'Cystic Fibrosis', 'AR')
-        cystic = tk.Button(self.root, text='Cystic Fibrosis', command=sis).place(x=171,y=217)
-        #phenyl = tk.Button(self.root, text='Phenylketoneuria', command=phenylketoneuria).place(x=163,y=243)
-        #glyco = tk.Button(self.root, text='Glycogen Storage Disease', command=glycogen).place(x=144,y=269)
+        cystic = tk.Button(self.root, text='Cystic Fibrosis', command=sis, bg='white').place(x=171, y=217)
         alb = lambda : Family(self.root, 'Albinism', 'AR')
-        albin = tk.Button(self.root, text='Albinism', command=alb).place(x=188,y=243)
+        albin = tk.Button(self.root, text='Albinism', command=alb, bg='white').place(x=188, y=243)
 
-        ad = tk.Label(self.root, text='AUTOSOME DOMINANT').place(x=150,y=276)
+        ad = tk.Label(self.root, text='AUTOSOME DOMINANT').place(x=150, y=280)
         asia = lambda : Family(self.root, 'Acondroplasia', 'AD')
-        acon = tk.Button(self.root, text='Acondroplasia', command=asia).place(x=173,y=302)
+        acon = tk.Button(self.root, text='Acondroplasia', command=asia, bg='white').place(x=173, y=302)
         ome = lambda : Family(self.root, 'Marfan Syndrome', 'AD')
-        marfan = tk.Button(self.root, text='Marfan Syndrome', command=ome).place(x=163,y=328)
+        marfan = tk.Button(self.root, text='Marfan Syndrome', command=ome, bg='white').place(x=163, y=328)
         mato = lambda : Family(self.root, 'Neurofibromatosis', 'AD')
-        neuro = tk.Button(self.root, text='Neurofibromatosis', command=mato).place(x=161,y=354)
+        neuro = tk.Button(self.root, text='Neurofibromatosis', command=mato, bg='white').place(x=161, y=354)
         rea = lambda : Family(self.root, "Huntingron's chorea", 'AD')
-        hunti = tk.Button(self.root, text="Huntingron's chorea", command=rea).place(x=156,y=380)
-        #osteo = tk.Button(self.root, text='Osteogenesis imperfecta(OI)', command=osteogenesis).place(x=136,y=452)
-        #peut = tk.Button(self.root, text='Peutz syndrome', command=peutzsd).place(x=170,y=478)
+        hunti = tk.Button(self.root, text="Huntingron's chorea", command=rea, bg='white').place(x=156, y=380)
         
-        xlink = tk.Label(self.root, text='X-LINKED RECESSIVE').place(x=160,y=413)
+        xlink = tk.Label(self.root, text='X-LINKED RECESSIVE').place(x=160, y=417)
         ness = lambda : Family(self.root, 'Color Blindness', 'XL')
-        color = tk.Button(self.root, text='Color Blindness', command=ness).place(x=172,y=439)
+        color = tk.Button(self.root, text='Color Blindness', command=ness, bg='white').place(x=172, y=439)
         lia = lambda : Family(self.root, 'Hemophilia', 'XL')
-        hemo = tk.Button(self.root, text='Hemophilia', command=lia).place(x=180,y=465)
+        hemo = tk.Button(self.root, text='Hemophilia', command=lia, bg='white').place(x=180, y=465)
         pd = lambda : Family(self.root, 'G-6-PD deficieccy', 'XL')
-        g6 = tk.Button(self.root, text='G-6-PD deficieccy', command=pd).place(x=166,y=491)
+        g6 = tk.Button(self.root, text='G-6-PD deficieccy', command=pd, bg='white').place(x=166, y=491)
         nne = lambda : Family(self.root, "Duchenne's muscular dystrophy", 'XL')
-        duch = tk.Button(self.root, text="Duchenne's muscular dystrophy", command=nne).place(x=126,y=517)
+        duch = tk.Button(self.root, text="Duchenne's muscular dystrophy", command=nne, bg='white').place(x=126, y=517)
         dro = lambda : Family(self.root, "Hypohidrotic ectodermal dysplasia", 'XL')
-        hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=dro).place(x=118,y=543)
+        hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=dro, bg='white').place(x=118, y=543)
         
         self.root.mainloop()
         
@@ -79,122 +76,149 @@ class Family(object):
         
 
     def tree(self):
-        #self.root.destroy()
-        #self.root = tk.Tk()
         self.root.geometry("430x650")
         image = Image.open('win1.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-        diseasedname = tk.Label(self.root, text=self.name.upper()).grid(row=0, column=2)
+        diseasedname = tk.Label(self.root, text=self.name.upper()).place(x=160, y=20)
 
         global poo, yaa, taa, yay, dad, mom
 
         if self.code == 'AR':
             
-            poo_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=1)
+            poo_show = tk.Label(self.root, text="Grandfather").place(x=70, y=50)
             self.poo = tk.StringVar(self.root)
             self.poo.set('NORMAL')
-            poo_type = tk.OptionMenu(self.root, self.poo, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=1)
-
-            yaa_show = tk.Label(self.root, text="Grandmother").grid(row=4, column=3)
+            poo_type = tk.OptionMenu(self.root, self.poo, 'NORMAL', 'DISEASED', 'CARRIER')
+            poo_type.config(bg='white')
+            poo_type.place(x=60, y=70)
+            
+            yaa_show = tk.Label(self.root, text="Grandmother").place(x=280, y=50)
             self.yaa = tk.StringVar(self.root)
             self.yaa.set('NORMAL')
-            yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=5, column=3)
+            yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED', 'CARRIER')
+            yaa_type.config(bg='white')
+            yaa_type.place(x=270, y=70)
 
-            taa_show = tk.Label(self.root, text="Grandfather").grid(row=10, column=1)
+            taa_show = tk.Label(self.root, text="Grandfather").place(x=70, y=190)
             self.taa = tk.StringVar(self.root)
             self.taa.set('NORMAL')
-            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=11, column=1)
+            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED', 'CARRIER')
+            taa_type.config(bg='white')
+            taa_type.place(x=60, y=210)
 
-            yay_show = tk.Label(self.root, text="Grandmother").grid(row=10, column=3)
+            yay_show = tk.Label(self.root, text="Grandmother").place(x=280, y=190)
             self.yay = tk.StringVar(self.root)
             self.yay.set('NORMAL')
-            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=11, column=3)
-
-            dad_show = tk.Label(self.root, text="Father").grid(row=7, column=2)
+            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED', 'CARRIER')
+            yay_type.config(bg='white')
+            yay_type.place(x=270, y=210)
+            
+            dad_show = tk.Label(self.root, text="Father").place(x=190, y=120)
             self.dad = tk.StringVar(self.root)
             self.dad.set('NORMAL')
-            dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=8, column=2)
+            dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED', 'CARRIER')
+            dad_type.config(bg='white')
+            dad_type.place(x=165, y=140)
 
-            mom_show = tk.Label(self.root, text="Mother").grid(row=12, column=2)
+            mom_show = tk.Label(self.root, text="Mother").place(x=190, y=280)
             self.mom = tk.StringVar(self.root)
             self.mom.set('NORMAL')
-            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED', 'CARRIER').grid(row=13, column=2)
+            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED', 'CARRIER')
+            mom_type.config(bg='white')
+            mom_type.place(x=165, y=300)
 
         elif self.code == 'BD':
-            poo_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=1)
+            poo_show = tk.Label(self.root, text="Grandfather").place(x=70, y=50)
             self.poo = tk.StringVar(self.root)
             self.poo.set('A')
-            poo_type = tk.OptionMenu(self.root, self.poo, 'A', 'B', 'AB', 'O').grid(row=5, column=1)
+            poo_type = tk.OptionMenu(self.root, self.poo, 'A', 'B', 'AB', 'O')
+            poo_type.config(bg='white')
+            poo_type.place(x=78, y=70)
 
-            yaa_show = tk.Label(self.root, text="Grandmother").grid(row=4, column=3)
+            yaa_show = tk.Label(self.root, text="Grandmother").place(x=280, y=50)
             self.yaa = tk.StringVar(self.root)
             self.yaa.set('A')
-            yaa_type = tk.OptionMenu(self.root, self.yaa, 'A', 'B', 'AB', 'O').grid(row=5, column=3)
+            yaa_type = tk.OptionMenu(self.root, self.yaa, 'A', 'B', 'AB', 'O')
+            yaa_type.config(bg='white')
+            yaa_type.place(x=288, y=70)
 
-            taa_show = tk.Label(self.root, text="Grandfather").grid(row=10, column=1)
+            taa_show = tk.Label(self.root, text="Grandfather").place(x=70, y=190)
             self.taa = tk.StringVar(self.root)
             self.taa.set('A')
-            taa_type = tk.OptionMenu(self.root, self.taa, 'A', 'B', 'AB', 'O').grid(row=11, column=1)
+            taa_type = tk.OptionMenu(self.root, self.taa, 'A', 'B', 'AB', 'O')
+            taa_type.config(bg='white')
+            taa_type.place(x=78, y=210)
 
-            yay_show = tk.Label(self.root, text="Grandmother").grid(row=10, column=3)
+            yay_show = tk.Label(self.root, text="Grandmother").place(x=280, y=190)
             self.yay = tk.StringVar(self.root)
             self.yay.set('A')
-            yay_type = tk.OptionMenu(self.root, self.yay, 'A', 'B', 'AB', 'O').grid(row=11, column=3)
+            yay_type = tk.OptionMenu(self.root, self.yay, 'A', 'B', 'AB', 'O')
+            yay_type.config(bg='white')
+            yay_type.place(x=288, y=210)
 
-            dad_show = tk.Label(self.root, text="Father").grid(row=7, column=2)
+            dad_show = tk.Label(self.root, text="Father").place(x=190, y=120)
             self.dad = tk.StringVar(self.root)
             self.dad.set('A')
-            dad_type = tk.OptionMenu(self.root, self.dad, 'A', 'B', 'AB', 'O').grid(row=8, column=2)
+            dad_type = tk.OptionMenu(self.root, self.dad, 'A', 'B', 'AB', 'O')
+            dad_type.config(bg='white')
+            dad_type.place(x=183, y=140)
 
-            mom_show = tk.Label(self.root, text="Mother").grid(row=12, column=2)
+            mom_show = tk.Label(self.root, text="Mother").place(x=190, y=280)
             self.mom = tk.StringVar(self.root)
             self.mom.set('A')
-            mom_type = tk.OptionMenu(self.root, self.mom, 'A', 'B', 'AB', 'O').grid(row=13, column=2)
+            mom_type = tk.OptionMenu(self.root, self.mom, 'A', 'B', 'AB', 'O')
+            mom_type.config(bg='white')
+            mom_type.place(x=183, y=300)
             
         else:
-            poo_show = tk.Label(self.root, text="Grandfather").grid(row=4, column=1)
+            poo_show = tk.Label(self.root, text="Grandfather").place(x=70, y=50)
             self.poo = tk.StringVar(self.root)
             self.poo.set('NORMAL')
-            poo_type = tk.OptionMenu(self.root, self.poo, 'NORMAL', 'DISEASED').grid(row=5, column=1)
+            poo_type = tk.OptionMenu(self.root, self.poo, 'NORMAL', 'DISEASED')
+            poo_type.config(bg='white')
+            poo_type.place(x=60, y=70)
 
-            yaa_show = tk.Label(self.root, text="Grandmother").grid(row=4, column=3)
+            yaa_show = tk.Label(self.root, text="Grandmother").place(x=280, y=50)
             self.yaa = tk.StringVar(self.root)
             self.yaa.set('NORMAL')
-            yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED').grid(row=5, column=3)
+            yaa_type = tk.OptionMenu(self.root, self.yaa, 'NORMAL', 'DISEASED')
+            yaa_type.config(bg='white')
+            yaa_type.place(x=270, y=70)
 
-            taa_show = tk.Label(self.root, text="Grandfather").grid(row=10, column=1)
+            taa_show = tk.Label(self.root, text="Grandfather").place(x=70, y=190)
             self.taa = tk.StringVar(self.root)
             self.taa.set('NORMAL')
-            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED').grid(row=11, column=1)
+            taa_type = tk.OptionMenu(self.root, self.taa, 'NORMAL', 'DISEASED')
+            taa_type.config(bg='white')
+            taa_type.place(x=60, y=210)
 
-            yay_show = tk.Label(self.root, text="Grandmother").grid(row=10, column=3)
+            yay_show = tk.Label(self.root, text="Grandmother").place(x=280, y=190)
             self.yay = tk.StringVar(self.root)
             self.yay.set('NORMAL')
-            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED').grid(row=11, column=3)
+            yay_type = tk.OptionMenu(self.root, self.yay, 'NORMAL', 'DISEASED')
+            yay_type.config(bg='white')
+            yay_type.place(x=270, y=210)
 
-            dad_show = tk.Label(self.root, text="Father").grid(row=7, column=2)
+            dad_show = tk.Label(self.root, text="Father").place(x=190, y=120)
             self.dad = tk.StringVar(self.root)
             self.dad.set('NORMAL')
-            dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED').grid(row=8, column=2)
+            dad_type = tk.OptionMenu(self.root, self.dad, 'NORMAL', 'DISEASED')
+            dad_type.config(bg='white')
+            dad_type.place(x=165, y=140)
 
-            mom_show = tk.Label(self.root, text="Mother").grid(row=12, column=2)
+            mom_show = tk.Label(self.root, text="Mother").place(x=190, y=280)
             self.mom = tk.StringVar(self.root)
             self.mom.set('NORMAL')
-            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED').grid(row=13, column=2)
-
-##        image = Image.open('processbutton.png')
-##        process_image = ImageTk.PhotoImage(image)
-##        process_button = tk.Button(win1,command=process,image=process_image,border=0).grid(row=3, column=1)
-##        process_button.place()
-
+            mom_type = tk.OptionMenu(self.root, self.mom, 'NORMAL', 'DISEASED')
+            mom_type.config(bg='white')
+            mom_type.place(x=165, y=300)
     
         process_image = ImageTk.PhotoImage(Image.open('processbutton.png'))
-        process_button = tk.Button(self.root,command=self.bus,image=process_image,border=2)#
-        process_button.grid(row=14, column=2)
-        process_button.place()
+        process_button = tk.Button(self.root,command=self.bus,image=process_image,border=0)
+        process_button.place(x=140, y=400)
         self.root.mainloop()
         
     def bus(self):
@@ -284,7 +308,7 @@ class Family(object):
         print self.mom
         baby = baby = self.cross(self.dad, self.mom, self.code, 'baby')
         print_result = Result(root, baby, self.name, self.code)
-        
+           
     def autosomerecessive(self, root):
         print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
         if self.dad == 'N':
@@ -328,25 +352,21 @@ class Result(object):
         self.code = code
         self.print_gene()
     def print_gene(self):
-##        self.root.destroy()
-##        self.root = tk.Tk()
-        #edit error
         self.root.geometry("430x650")
         image = Image.open('win1.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
-        head = tk.Label(self.root, text=self.name.upper()).grid(row=0, column=0)
+        head = tk.Label(self.root, text=self.name.upper()).place(x=160, y=20)
     
-        yourbaby = tk.Label(self.root, text=self.predict()).grid(row=1, column=0)
+        yourbaby = tk.Label(self.root, text=self.predict()).place(x=150,y=280)
 
         image = Image.open('backbutton.png')
         back_image = ImageTk.PhotoImage(image)
-        back_button = tk.Button(self.root,command=self.back,image=back_image,border=2)
+        back_button = tk.Button(self.root,command=self.back,image=back_image,border=0)
         
-        back_button.grid(row=2, column=0)
-        back_button.place()
+        back_button.place(x=150,y=430)
         self.root.mainloop()
     def predict(self):
         if self.code == 'AR':
@@ -383,57 +403,9 @@ class Result(object):
         return string
 
     def back(self):
-        #self.root.destroy()
         app = Home(self.root)
         
-def bloodtype():
-    root.destroy()
-    win1 = tk.Tk()
-    win1.title('Blood Type')
-    win1.geometry("430x650")
-    image = Image.open('win1.jpg')
-    tkimage = ImageTk.PhotoImage(image)
-    bg = tk.Label(win1, image = tkimage)
-    bg.place(x=0, y=0, relwidth=1, relheight=1)
-    
-    global mom, dad
-    
-    mom_text = tk.Label(win1, text='Mother Blood Type: ').grid(row=0, column=0)
-    mom = tk.StringVar(win1)
-    mom.set('A')
-    mom_type = tk.OptionMenu(win1, mom, 'A', 'B', 'AB', 'O').grid(row=0, column=1)
-
-    dad_text = tk.Label(win1, text='Father Blood Type: ').grid(row=2, column=0)  
-    dad = tk.StringVar(win1)
-    dad.set('A')
-    dad_type = tk.OptionMenu(win1, dad, 'A', 'B', 'AB', 'O').grid(row=2, column=1)
-    ############
-    image = Image.open('processbutton.png')
-    process_image = ImageTk.PhotoImage(image)
-    process_button = tk.Button(win1,command=process,image=process_image,border=0).grid(row=3, column=1)
-    process_button.place()
-    
-def process():
-    mom_and_dad = str(mom.get())+str(dad.get())
-    group = {'AA': ['A 50%', 'O 50%'], \
-             'BB': ['B 50%', 'O 50%'], \
-             'ABAB': ['A 33.33%', 'B 33.33%' ,'AB 33.33%'], \
-             'OO': ['O 100%'], \
-             'AB': ['A 25%', 'B 25%', 'AB 25%', 'O 25%'], \
-             'BA': ['A 25%', 'B 25%', 'AB 25%', 'O 25%'], \
-             'AAB': ['A 33.33%', 'B 33.33%' ,'AB 33.33%'], \
-             'ABA': ['A 33.33%', 'B 33.33%' ,'AB 33.33%'], \
-             'BAB': ['A 33.33%', 'B 33.33%' ,'AB 33.33%'], \
-             'ABB': ['A 33.33%', 'B 33.33%' ,'AB 33.33%'], \
-             'ABO': ['A 50%', 'B 50%'], \
-             'OAB': ['A 50%', 'B 50%'], \
-             'AO': ['A 50%', 'O 50%'], \
-             'OA': ['A 50%', 'O 50%'], \
-             'BO': ['B 50%', 'O 50%'], \
-             'OB': ['B 50%', 'O 50%']}
-    tkMessageBox.showinfo('Result',' or '.join(group[mom_and_dad]))
     
 root = tk.Tk()
-root.title("Baby Gene")
 app = Home(root)
 root.mainloop()
