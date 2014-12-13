@@ -61,7 +61,14 @@ class Home(object):
         dro = lambda : Family(self.root, "Hypohidrotic ectodermal dysplasia", 'XL')
         hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=dro, bg='white').place(x=118, y=543)
         
+        quit_image = ImageTk.PhotoImage(Image.open('quitbutton.png'))
+        quit_button = tk.Button(self.root,command=self.end,image=quit_image,border=0)
+        quit_button.place(x=170, y=600)
+
         self.root.mainloop()
+
+    def end(self):
+        self.root.destroy()
         
 class Family(object):
     '''
@@ -82,7 +89,7 @@ class Family(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-        diseasedname = tk.Label(self.root, text=self.name.upper()).place(x=160, y=20)
+        diseasedname = tk.Label(self.root, text=self.name.upper()).place(x=105, y=0)
 
         global poo, yaa, taa, yay, dad, mom
 
@@ -352,13 +359,26 @@ class Result(object):
         self.code = code
         self.print_gene()
     def print_gene(self):
+
         self.root.geometry("430x650")
         image = Image.open('win1.jpg')
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
-        head = tk.Label(self.root, text=self.name.upper()).place(x=160, y=20)
+        self.head = tk.Label(self.root, text=self.name.upper()).place(x=150, y=20)
+        picdisease = {'Thalassemia':"thalassemia.png", 'Galactosemia':"galac.png",
+                      'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
+                      'Acondroplasia':"acondro.png", 'Marfan Syndrome':"marfan.png",
+                      'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
+                      'Color Blindness':"color.png", 'Hemophilia':"hemophilia",
+                      'G-6-PD deficieccy':"g6pd.png", "Duchenne's muscular dystrophy":"duchan.png",
+                      "Hypohidrotic ectodermal dysplasia":"hypo.png"}
+        imagee = Image.open(picdisease[self.name])
+        photo = ImageTk.PhotoImage(imagee)
+        label = tk.Label(image=photo)
+        label.image = photo 
+        label.place(x=20, y=50)
     
         yourbaby = tk.Label(self.root, text=self.predict()).place(x=150,y=280)
 
@@ -399,10 +419,11 @@ class Result(object):
         else:
             for item in self.baby:
                 string += didic[item] + '     ' + str(self.baby[item] * 25) + '%' + '\n'
-        string += '***it only probability***'
+        string += '\n\n***it only probability***'
         return string
 
     def back(self):
+        self.name = ''
         app = Home(self.root)
         
     
