@@ -27,7 +27,7 @@ class Home(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         bdg = semia = lambda : Family(self.root,'Blood Group', 'BD')
-        bloodgroup = tk.Button(self.root, text='Blood Type', command=bdg, bg='white').place(x=180, y=112)
+        bloodgroup = tk.Button(self.root, text='Blood Group', command=bdg, bg='white').place(x=180, y=112)
 
         ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150, y=145)
         semia = lambda : Family(self.root,'Thalassemia', 'AR')
@@ -40,8 +40,8 @@ class Home(object):
         albin = tk.Button(self.root, text='Albinism', command=alb, bg='white').place(x=188, y=243)
 
         ad = tk.Label(self.root, text='AUTOSOME DOMINANT').place(x=150, y=280)
-        asia = lambda : Family(self.root, 'Acondroplasia', 'AD')
-        acon = tk.Button(self.root, text='Acondroplasia', command=asia, bg='white').place(x=173, y=302)
+        asia = lambda : Family(self.root, 'Achondroplasia', 'AD')
+        acon = tk.Button(self.root, text='Achondroplasia', command=asia, bg='white').place(x=173, y=302)
         ome = lambda : Family(self.root, 'Marfan Syndrome', 'AD')
         marfan = tk.Button(self.root, text='Marfan Syndrome', command=ome, bg='white').place(x=163, y=328)
         mato = lambda : Family(self.root, 'Neurofibromatosis', 'AD')
@@ -54,15 +54,15 @@ class Home(object):
         color = tk.Button(self.root, text='Color Blindness', command=ness, bg='white').place(x=172, y=439)
         lia = lambda : Family(self.root, 'Hemophilia', 'XL')
         hemo = tk.Button(self.root, text='Hemophilia', command=lia, bg='white').place(x=180, y=465)
-        pd = lambda : Family(self.root, 'G-6-PD deficieccy', 'XL')
-        g6 = tk.Button(self.root, text='G-6-PD deficieccy', command=pd, bg='white').place(x=166, y=491)
+        pd = lambda : Family(self.root, 'G-6-PD deficiency', 'XL')
+        g6 = tk.Button(self.root, text='G-6-PD deficiency', command=pd, bg='white').place(x=166, y=491)
         nne = lambda : Family(self.root, "Duchenne's muscular dystrophy", 'XL')
         duch = tk.Button(self.root, text="Duchenne's muscular dystrophy", command=nne, bg='white').place(x=126, y=517)
         dro = lambda : Family(self.root, "Hypohidrotic ectodermal dysplasia", 'XL')
         hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=dro, bg='white').place(x=118, y=543)
         
         quit_image = ImageTk.PhotoImage(Image.open('quitbutton.png'))
-        quit_button = tk.Button(self.root,command=self.end,image=quit_image,border=0)
+        quit_button = tk.Button(self.root,command=self.end,image=quit_image,border=1)
         quit_button.place(x=170, y=600)
 
         self.root.mainloop()
@@ -89,7 +89,7 @@ class Family(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-        diseasedname = tk.Label(self.root, text=self.name.upper()).place(x=105, y=0)
+        diseasedname = tk.Label(self.root, text=self.name.upper(),justify='center').pack()
 
         global poo, yaa, taa, yay, dad, mom
 
@@ -366,14 +366,14 @@ class Result(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
-        self.head = tk.Label(self.root, text=self.name.upper()).place(x=150, y=20)
+        self.head = tk.Label(self.root, text=self.name.upper(),justify='center').pack()
         picdisease = {'Thalassemia':"thalassemia.png", 'Galactosemia':"galac.png",
                       'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
-                      'Acondroplasia':"acondro.png", 'Marfan Syndrome':"marfan.png",
+                      'Achondroplasia':"achondro.png", 'Marfan Syndrome':"marfan.png",
                       'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
                       'Color Blindness':"color.png", 'Hemophilia':"hemophilia.png",
-                      'G-6-PD deficieccy':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
-                      "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.png"}
+                      'G-6-PD deficiency':"g6pd.png", "Duchenne's muscular dystrophy":"duchan.png",
+                      "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.jpg"}
         imagee = Image.open(picdisease[self.name])
         photo = ImageTk.PhotoImage(imagee)
         label = tk.Label(image=photo)
