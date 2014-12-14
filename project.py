@@ -113,7 +113,11 @@ class Family(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
 
+<<<<<<< HEAD
         diseasedname = tk.Label(self.root, text=self.name.upper()).place(x=105, y=0)
+=======
+        diseasedname = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
+>>>>>>> 0e27dc6bd482f0b88dac9cfd65fc40c088e275ee
 
         global poo, yaa, taa, yay, dad, mom
 
@@ -274,14 +278,24 @@ class Result(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
+<<<<<<< HEAD
         self.head = tk.Label(self.root, text=self.name.upper()).place(x=150, y=20)
+=======
+        self.head = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
+
+>>>>>>> 0e27dc6bd482f0b88dac9cfd65fc40c088e275ee
         picdisease = {'Thalassemia':"thalassemia.png", 'Galactosemia':"galac.png",
                       'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
                       'Achondroplasia':"achondro.png", 'Marfan Syndrome':"marfan.png",
                       'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
                       'Color Blindness':"color.png", 'Hemophilia':"hemophilia.png",
+<<<<<<< HEAD
                       'G-6-PD deficieccy':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
                       "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.png"}
+=======
+                      'G-6-PD deficiency':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
+                      "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.jpg"}
+>>>>>>> 0e27dc6bd482f0b88dac9cfd65fc40c088e275ee
         imagee = Image.open(picdisease[self.name])
         photo = ImageTk.PhotoImage(imagee)
         label = tk.Label(image=photo)
