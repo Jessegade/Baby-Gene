@@ -119,7 +119,7 @@ class Family(object):
 
         if self.code == 'AR':
             lst = ['NORMAL', 'DISEASED', 'CARRIER']
-        elif self.code == 'AD':
+        elif self.code == 'AD' or self.code == 'XL':
             lst = ['NORMAL', 'DISEASED']
         else:
             lst = ['A', 'B', 'AB', 'O']
