@@ -27,7 +27,7 @@ class Home(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         bdg = lambda : Family(self.root,'Blood Group', 'BD')
-        bloodgroup = tk.Button(self.root, text='Blood Type', command=bdg, bg='white').place(x=180, y=112)
+        bloodgroup = tk.Button(self.root, text='Blood Group', command=bdg, bg='white').place(x=180, y=112)
 
         ar = tk.Label(self.root, text='AUTOSOME RECESSIVE').place(x=150, y=145)
         semia = lambda : Family(self.root,'Thalassemia', 'AR')
@@ -37,7 +37,7 @@ class Home(object):
         sis = lambda : Family(self.root, 'Cystic Fibrosis', 'AR')
         cystic = tk.Button(self.root, text='Cystic Fibrosis', command=sis, bg='white').place(x=171, y=217)
         alb = lambda : Family(self.root, 'Albinism', 'AR')
-        albin = tk.Button(self.root, text='Albinism', command=alb, bg='white').place(x=188, y=243)
+        albin = tk.Button(self.root, text='Albinism', command=alb, bg='white').place(x=185, y=243)
 
         ad = tk.Label(self.root, text='AUTOSOME DOMINANT').place(x=150, y=280)
         asia = lambda : Family(self.root, 'Achondroplasia', 'AD')
@@ -54,8 +54,8 @@ class Home(object):
         color = tk.Button(self.root, text='Color Blindness', command=ness, bg='white').place(x=172, y=439)
         lia = lambda : Family(self.root, 'Hemophilia', 'XL')
         hemo = tk.Button(self.root, text='Hemophilia', command=lia, bg='white').place(x=180, y=465)
-        pd = lambda : Family(self.root, 'G-6-PD deficieccy', 'XL')
-        g6 = tk.Button(self.root, text='G-6-PD deficieccy', command=pd, bg='white').place(x=166, y=491)
+        pd = lambda : Family(self.root, 'G-6-PD deficiency', 'XL')
+        g6 = tk.Button(self.root, text='G-6-PD deficiency', command=pd, bg='white').place(x=166, y=491)
         nne = lambda : Family(self.root, "Duchenne's muscular dystrophy", 'XL')
         duch = tk.Button(self.root, text="Duchenne's muscular dystrophy", command=nne, bg='white').place(x=126, y=517)
         dro = lambda : Family(self.root, "Hypohidrotic ectodermal dysplasia", 'XL')
@@ -113,7 +113,7 @@ class Family(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
 
-        diseasedname = tk.Label(self.root, text=self.name.upper()).place(x=105, y=0)
+        diseasedname = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
 
         global poo, yaa, taa, yay, dad, mom
 
@@ -124,12 +124,12 @@ class Family(object):
         else:
             lst = ['A', 'B', 'AB', 'O']
             
-        self.poo = self.choice(self.poo, "Grandfather(DADDY)", lst, 70, 50, 60, 70)
-        self.yaa = self.choice(self.yaa, "Grandmother(DADDY)", lst, 280, 50, 270, 70)
-        self.taa = self.choice(self.taa, "Grandfather(MOMMY)", lst, 70, 190, 60, 210)
-        self.yay = self.choice(self.yay, "Grandmother(MOMMY)", lst, 280, 190, 270, 210)
-        self.dad = self.choice(self.dad, "Daddy", lst, 190, 120, 165, 140)
-        self.mom = self.choice(self.mom, "Mommy", lst, 190, 280, 165, 300)
+        self.poo = self.choice(self.poo, "Grandfather(Father)", lst, 45, 50, 60, 70)
+        self.yaa = self.choice(self.yaa, "Grandmother(Father)", lst, 255, 50, 270, 70)
+        self.taa = self.choice(self.taa, "Grandfather(Mother)", lst, 45, 190, 60, 210)
+        self.yay = self.choice(self.yay, "Grandmother(Mother)", lst, 255, 190, 270, 210)
+        self.dad = self.choice(self.dad, "Father", lst, 187, 120, 165, 140)
+        self.mom = self.choice(self.mom, "Mother", lst, 187, 280, 165, 300)
           
         process_image = ImageTk.PhotoImage(Image.open('processbutton.png'))
         process_button = tk.Button(self.root,command=self.bus,image=process_image,border=0)
@@ -138,8 +138,8 @@ class Family(object):
         
     def bus(self):
         st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C', 'A':'AA', 'B':'BB', 'AB':'AB', 'O':'ii'}
-        self.poo, self.yaa, self.dad = st[self.keep["Grandfather(DADDY)"]], st[self.keep["Grandmother(DADDY)"]], st[self.keep["Daddy"]]
-        self.taa, self.yay, self.mom = st[self.keep["Grandfather(MOMMY)"]], st[self.keep["Grandfather(MOMMY)"]], st[self.keep["Mommy"]]
+        self.poo, self.yaa, self.dad = st[self.keep["Grandfather(Father)"]], st[self.keep["Grandmother(Father)"]], st[self.keep["Father"]]
+        self.taa, self.yay, self.mom = st[self.keep["Grandfather(Mother)"]], st[self.keep["Grandfather(Mother)"]], st[self.keep["Mother"]]
         if self.code == 'AR':
             self.autosomerecessive(self.root)
         elif self.code == 'AD':
@@ -274,13 +274,13 @@ class Result(object):
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
         
-        self.head = tk.Label(self.root, text=self.name.upper()).place(x=150, y=20)
+        self.head = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
         picdisease = {'Thalassemia':"thalassemia.png", 'Galactosemia':"galac.png",
                       'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
                       'Achondroplasia':"achondro.png", 'Marfan Syndrome':"marfan.png",
                       'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
                       'Color Blindness':"color.png", 'Hemophilia':"hemophilia.png",
-                      'G-6-PD deficieccy':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
+                      'G-6-PD deficiency':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
                       "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.png"}
         imagee = Image.open(picdisease[self.name])
         photo = ImageTk.PhotoImage(imagee)
@@ -288,13 +288,13 @@ class Result(object):
         label.image = photo 
         label.place(x=20, y=50)
     
-        yourbaby = tk.Label(self.root, text=self.predict()).place(x=150,y=280)
+        yourbaby = tk.Label(self.root, text=self.predict()).place(relx=0.5, rely=0.5, anchor='center')
 
         image = Image.open('backbutton.png')
         back_image = ImageTk.PhotoImage(image)
         back_button = tk.Button(self.root,command=self.back,image=back_image,border=0)
         
-        back_button.place(x=150,y=430)
+        back_button.place(x=160,y=430)
         self.root.mainloop()
     def predict(self):
         if self.code == 'AR':
