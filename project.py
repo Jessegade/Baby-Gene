@@ -70,14 +70,6 @@ class Home(object):
     def end(self):
         self.root.destroy()
         
-class Choice(tk.OptionMenu):
- def __init__(self, root, *lst):
-    show = tk.Label(self.root, text=text).place(x=nx, y=ny)
-    self.var = StringVar(root)
-    self.var.set('NORMAL')
-    tk.OptionMenu.__init__(self, root, self.var, *lst)
-    self.config(bg='white')
-        
 class Family(object):
     '''
     input
@@ -96,15 +88,42 @@ class Family(object):
         self.mom = tk.StringVar(self.root)
         self.tree()
 
-    def choice(self, who, text, lst, nx, ny, bx, by):
-        show = tk.Label(self.root, text=text).place(x=nx, y=ny)
-        who.set('SELECT')
-        who_type = tk.OptionMenu(self.root, who, *lst, command=lambda var=who.get(), text=text: self.add(var, text))
-        who_type.config(bg='white')
-        who_type.place(x=bx, y=by)
+    def choice(self, lst, status):
+        pooshow = tk.Label(self.root, text='Grandfather(Father)').place(x=45, y=280)
+        self.poo.set(status)
+        poo_type = tk.OptionMenu(self.root, self.poo, *lst)
+        poo_type.config(bg='white')
+        poo_type.place(x=60, y=300)
 
-    def add(self, var, text):
-        self.keep[text] = var
+        yaashow = tk.Label(self.root, text='Grandmother(Father)').place(x=255, y=280)
+        self.yaa.set(status)
+        yaa_type = tk.OptionMenu(self.root, self.yaa, *lst)
+        yaa_type.config(bg='white')
+        yaa_type.place(x=270, y=300)
+
+        taashow = tk.Label(self.root, text='Grandfather(Mother)').place(x=45, y=420)
+        self.taa.set(status)
+        taa_type = tk.OptionMenu(self.root, self.taa, *lst)
+        taa_type.config(bg='white')
+        taa_type.place(x=60, y=450)
+
+        yayshow = tk.Label(self.root, text='Grandmother(Mother)').place(x=255, y=420)
+        self.yay.set(status)
+        yay_type = tk.OptionMenu(self.root, self.yay, *lst)
+        yay_type.config(bg='white')
+        yay_type.place(x=270, y=450)
+
+        dadshow = tk.Label(self.root, text='Father').place(x=187, y=350)
+        self.dad.set(status)
+        dad_type = tk.OptionMenu(self.root, self.dad, *lst)
+        dad_type.config(bg='white')
+        dad_type.place(x=165, y=370)
+
+        momshow = tk.Label(self.root, text='mother').place(x=187, y=260)
+        self.mom.set(status)
+        mom_type = tk.OptionMenu(self.root, self.mom, *lst)
+        mom_type.config(bg='white')
+        mom_type.place(x=165, y=490)
 
     def tree(self):
         self.root.geometry("430x650")
@@ -115,31 +134,44 @@ class Family(object):
 
         diseasedname = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
 
+        self.head = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
+        picdisease = {'Thalassemia':"thalassemia.png", 'Galactosemia':"galac.png",
+                      'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
+                      'Achondroplasia':"achondro.png", 'Marfan Syndrome':"marfan.png",
+                      'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
+                      'Color Blindness':"color.png", 'Hemophilia':"hemophilia.png",
+                      'G-6-PD deficiency':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
+                      "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.jpg"}
+        imagee = Image.open(picdisease[self.name])
+        photo = ImageTk.PhotoImage(imagee)
+        label = tk.Label(image=photo)
+        label.image = photo 
+        label.place(x=20, y=50)
+        
         global poo, yaa, taa, yay, dad, mom
 
         if self.code == 'AR':
+            status = 'NORMAL'
             lst = ['NORMAL', 'DISEASED', 'CARRIER']
         elif self.code == 'AD' or self.code == 'XL':
+            status = 'NORMAL'
             lst = ['NORMAL', 'DISEASED']
         else:
+            status = 'O'
             lst = ['A', 'B', 'AB', 'O']
             
-        self.poo = self.choice(self.poo, "Grandfather(Father)", lst, 45, 50, 60, 70)
-        self.yaa = self.choice(self.yaa, "Grandmother(Father)", lst, 255, 50, 270, 70)
-        self.taa = self.choice(self.taa, "Grandfather(Mother)", lst, 45, 190, 60, 210)
-        self.yay = self.choice(self.yay, "Grandmother(Mother)", lst, 255, 190, 270, 210)
-        self.dad = self.choice(self.dad, "Father", lst, 187, 120, 165, 140)
-        self.mom = self.choice(self.mom, "Mother", lst, 187, 280, 165, 300)
-          
+        way = self.choice(lst, status)
+     
         process_image = ImageTk.PhotoImage(Image.open('processbutton.png'))
         process_button = tk.Button(self.root,command=self.bus,image=process_image,border=0)
-        process_button.place(x=140, y=400)
+        process_button.place(x=140, y=550)
         self.root.mainloop()
         
     def bus(self):
-        st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C', 'A':'AA', 'B':'BB', 'AB':'AB', 'O':'ii'}
-        self.poo, self.yaa, self.dad = st[self.keep["Grandfather(Father)"]], st[self.keep["Grandmother(Father)"]], st[self.keep["Father"]]
-        self.taa, self.yay, self.mom = st[self.keep["Grandfather(Mother)"]], st[self.keep["Grandfather(Mother)"]], st[self.keep["Mother"]]
+        st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C', 'A':['AA','AO'], 'B':['BB', 'BO'],
+              'AB':['AB'], 'O':['OO']}
+        self.poo, self.yaa, self.dad = st[self.poo.get()], st[self.yaa.get()], st[self.dad.get()]
+        self.taa, self.yay, self.mom = st[self.taa.get()], st[self.yay.get()], st[self.mom.get()]
         if self.code == 'AR':
             self.autosomerecessive(self.root)
         elif self.code == 'AD':
@@ -149,21 +181,9 @@ class Family(object):
         elif self.code == 'BD':
             self.blood(self.root)     
 
-    def cross(self, male, female, code, re):
-        if code == 'AR':
-            gtab = {'D':'aa', 'C':'Aa', 'N': 'AA'}
-        elif code == 'AD':
-            gtab = {'N':'aa', 'D': 'AA', 'C':'Aa'}
-        elif code == 'XL':
-            gtabmale = {'N':'XY', 'D':'Yx'}
-            gtabfemale = {'N':'XX', 'C':'Xx', 'D':'xx'}
-        elif code == 'BD':
-            gtab = {'AA':'AA', 'Ai':'Ai', 'BB':'BB', 'Bi':'Bi', 'AB':'AB', 'ii':'ii'}
+    def cross(self, male, female, code):
         genotype = dict()
-        if code == 'XL':
-            male, female = gtabmale[male], gtabfemale[female]
-        else:
-            male, female = gtab[male], gtab[female]
+        male, female = male, female
         for s in male:
             for e in female:
                 geno = [s, e]
@@ -173,90 +193,108 @@ class Family(object):
                     genotype[geno] += 1
                 else:
                     genotype[geno] = 1
-        print genotype
-        if code == 'AR':
-            if re == 'check':
-                if 'aa' in genotype:
-                    return 'D'
-                elif 'Aa' in genotype:
-                    return 'C'
+        else:
+            return genotype
+
+    def testloop(self, test, comp):
+        pool = dict()
+        for i in test:
+            if i in comp:
+                if i in pool:
+                    pool[i] += 1
                 else:
-                    return 'N'
-            else:
-                return genotype
-        elif code == 'AD':
-            if re == 'check':
-                if 'AA' in genotype:
-                    return 'D'
+                    pool[i] = 1
+        print 'pool', pool.keys()
+        return pool.keys()
+
+    def allcase(self, alldad, allmom, code, re):
+        sumcross = []
+        for i in alldad:
+            for j in allmom:
+                if re == 'P':
+                    sumcross.extend(self.cross(i, j, code).keys())
                 else:
-                    return 'C'
-            else:
-                return genotype
-        elif code == 'XL':
-            if re == 'check':
-                if 'Xx' in genotype:
-                    return 'C'
-                else:
-                    return 'N'
-            else:
-                return genotype
-        elif code == 'BD':
-            if re == 'check':
-                if 'Ai' in genotype:
-                    return 'Ai'
-                elif 'Bi' in genotype:
-                    return 'Bi'
-                elif 'AA' or 'BB' in genotype:
-                    return genotype.keys()[0]
-            else:
-                return genotype
-    def blood(self, root):
-        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
-        if (self.dad == 'AA' and (self.poo != 'AB' and self.yaa != 'AB')) or \
-            (self.dad == 'BB' and (self.poo != 'AB' and self.yaa != 'AB')):
-            self.dad = self.cross(self.poo, self.yaa, self.code, 'check')
+                    sumcross.append([[i, j], self.cross(i, j, code)])
+        print 'sumcross', sumcross
+        return sumcross
             
-        print self.dad
-        if (self.mom == 'AA' and (self.taa != 'AB' and self.yay != 'AB')) or \
-            (self.mom == 'BB' and (self.taa != 'AB' and self.yay != 'AB')):
-            self.mom =  self.cross(self.taa, self.yay, self.code, 'check')
-        print self.mom
-        baby = baby = self.cross(self.dad, self.mom, self.code, 'baby')
+    
+    def blood(self, root):
+        print 'input', self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        if self.dad == 'AB' or self.dad == 'OO' :
+            self.alldad = self.dad
+        else:
+            self.alldad = self.allcase(self.poo, self.yaa, self.code, 'P')
+            self.alldad = self.testloop(self.alldad, self.dad)
+        print 'self.alldad', self.alldad 
+        if self.mom == 'AB' or self.mom == 'OO':
+            self.allmom = self.mom
+        else:
+            self.allmom =  self.allcase(self.taa, self.yay, self.code, 'P')
+            self.allmom = self.testloop(self.allmom, self.mom)
+        print 'self.allmom', self.allmom
+        baby = self.allcase(self.alldad, self.allmom, self.code, 'B')
+        print 'baby', baby
         print_result = Result(root, baby, self.name, self.code)
            
     def autosomerecessive(self, root):
-        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
-        if self.dad == 'N':
-            self.dad = self.cross(self.poo, self.yaa, self.code, 'check')
-            if self.dad == 'D':
-                self.dad = 'C'
-        print self.dad
-        if self.mom == 'N':
-            self.mom = self.cross(self.taa, self.yay, self.code, 'check')
-            if self.mom == 'D':
-                self.mom = 'C'
-        print self.mom
-        baby = self.cross(self.dad, self.mom, self.code, 'baby')
+        tran = {'D':['aa'], 'N':['AA', 'Aa'], 'C':['Aa']}
+        self.poo, self.yaa, self.dad = tran[self.poo], tran[self.yaa], tran[self.dad]
+        self.taa, self.yay, self.mom = tran[self.taa], tran[self.yay], tran[self.mom]
+        print 'input',self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        if self.dad == 'aa':
+            self.alldad = self.dad
+        else:
+            self.alldad = self.allcase(self.poo, self.yaa, self.code, 'P')
+            self.alldad = self.testloop(self.alldad, self.dad)
+        print 'self.alldad', self.alldad
+        if self.mom == 'aa':
+            self.allmom = self.mom
+        else:
+            self.allmom = self.allcase(self.taa, self.yay, self.code, 'P')
+            self.allmom = self.testloop(self.allmom, self.mom)
+        print 'self.allmom', self.allmom
+        baby = self.allcase(self.alldad, self.allmom, self.code, 'B')
+        print 'baby', baby
         print_result = Result(root, baby, self.name, self.code)
 
     def autosomedominant(self, root):
-        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
-        if self.dad == 'D':
-            self.dad = self.cross(self.poo, self.yaa, self.code, 'check')
-        print self.dad
-        if self.mom == 'D':
-            self.mom = self.cross(self.taa, self.yay, self.code, 'check')
-        print self.mom
-        baby = self.cross(self.dad, self.mom, self.code, 'baby')
+        tran = {'D':['AA', 'Aa'], 'N':['aa']}
+        self.poo, self.yaa, self.dad = tran[self.poo], tran[self.yaa], tran[self.dad]
+        self.taa, self.yay, self.mom = tran[self.taa], tran[self.yay], tran[self.mom]
+        print 'input', self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        if self.dad == 'aa':
+            self.alldad = self.dad
+        else:
+            self.alldad = self.allcase(self.poo, self.yaa, self.code, 'P')
+            self.alldad = self.testloop(self.alldad, self.dad)
+        print 'self.alldad', self.alldad
+        if self.mom == 'aa':
+            self.allmom = self.mom
+        else:
+            self.allmom = self.allcase(self.taa, self.yay, self.code, 'P')
+            self.allmom = self.testloop(self.allmom, self.mom)
+        print 'self.allmom', self.allmom
+        baby = self.allcase(self.alldad, self.allmom, self.code, 'B')
+        print 'baby', baby
         print_result = Result(root, baby, self.name, self.code)
 
     def xlink(self, root):
-        print self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
-        if self.mom == 'N':
-            self.mom = self.cross(self.taa, self.yay, self.code, 'check')
-        print self.dad
-        print self.mom
-        baby = self.cross(self.dad, self.mom, self.code, 'baby')
+        tran_m = {'N':['XY'], 'D':['Yx']}
+        tran_w = {'N':['XX', 'Xx'], 'D':'xx'}
+        self.poo, self.yaa, self.dad = tran_m[self.poo], tran_w[self.yaa], tran_m[self.dad]
+        self.taa, self.yay, self.mom = tran_m[self.taa], tran_w[self.yay], tran_w[self.mom]
+        print 'input', self.poo, self.yaa, self.taa, self.yay, self.dad, self.mom, self.code
+        self.alldad = self.dad
+        print 'self.alldad', self.alldad
+        if self.mom == 'xx':
+            self.allmom = self.mom
+        else:
+            self.allmom = self.allcase(self.taa, self.yay, self.code, 'P')
+            self.allmom = self.testloop(self.allmom, self.mom)
+        print 'self.allmom', self.allmom
+        baby = self.allcase(self.alldad, self.allmom, self.code, 'B')
+        print 'baby', baby
         print_result = Result(root, baby, self.name, self.code)
 
 class Result(object):
@@ -273,61 +311,61 @@ class Result(object):
         tkimage = ImageTk.PhotoImage(image)
         bg = tk.Label(self.root, image = tkimage)
         bg.place(x=0, y=0, relwidth=1, relheight=1)
-        
-        self.head = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
-        picdisease = {'Thalassemia':"thalassemia.png", 'Galactosemia':"galac.png",
-                      'Cystic Fibrosis':"cystic.png", 'Albinism':"albinism.png",
-                      'Achondroplasia':"achondro.png", 'Marfan Syndrome':"marfan.png",
-                      'Neurofibromatosis':"neuro.png", "Huntingron's chorea":"hunting.png",
-                      'Color Blindness':"color.png", 'Hemophilia':"hemophilia.png",
-                      'G-6-PD deficiency':"g6pd.png", "Duchenne's muscular dystrophy":"duchen.png",
-                      "Hypohidrotic ectodermal dysplasia":"hypo.png", "Blood Group":"blood.png"}
-        imagee = Image.open(picdisease[self.name])
-        photo = ImageTk.PhotoImage(imagee)
-        label = tk.Label(image=photo)
-        label.image = photo 
-        label.place(x=20, y=50)
+
+        diseasename = tk.Label(self.root, text=self.name.upper()).place(relx=0.5, rely=0.03, anchor='center')
     
-        yourbaby = tk.Label(self.root, text=self.predict()).place(relx=0.5, rely=0.5, anchor='center')
+        yourbaby = tk.Label(self.root, text=self.printallcase()).place(relx=0.5, rely=0.5, anchor='center')
 
         image = Image.open('backbutton.png')
         back_image = ImageTk.PhotoImage(image)
         back_button = tk.Button(self.root,command=self.back,image=back_image,border=0)
         
-        back_button.place(x=160,y=430)
+        back_button.place(x=160,y=600)
         self.root.mainloop()
-    def predict(self):
+
+    def printallcase(self):
+        if len(self.baby) == 0:
+            data =  '********************  Your PEDIGREE is invalid  ********************\n\n'
+            data += 'Please check your Pedigree again :=]'
+            return data
+        data = 'TOTAL CASE : ' + str(len(self.baby)) + '\n\n\n Your baby gene is \n\n'
+        for i in xrange(len(self.baby)):
+            data += '\n------------------------ CASE ' + str(i + 1) + ' ------------------------\n'
+            data += self.predict(self.baby[i][0], self.baby[i][1])
+        data += '\n***it only probability***'
+        return data
+    
+    def predict(self, namecase, thiscase):
         if self.code == 'AR':
-            didic = {'aa':self.name+' Diseased', 'Aa':self.name+' Carrier', 'AA':' Normal'}
+            didic = {'aa':' Diseased', 'Aa':' Carrier', 'AA':' Normal'}
         elif self.code == 'AD':
-            didic = {'aa':' Normal', 'Aa':self.name+' Diseased(hetero)', 'AA':self.name+' Diseased(homo)'}
+            didic = {'aa':' Normal', 'Aa':' Diseased(heterozygous)', 'AA':' Diseased(homozygous)'}
         elif self.code == 'XL':
-            didic = {'Yx':self.name +' Diseased Son', 'XY':' Normal Son',
-                    'XX':' Normal Daughter', 'Xx':' Normal(carrier) Daughter',
-                    'xx':self.name +' Diseased Daughter'}
+            didic = {'Yx':' Diseased', 'XY':' Normal',
+                    'XX':' Normal', 'Xx':' Normal(carrier)',
+                    'xx':' Diseased Daughter'}
         elif self.code == 'BD':
-            didic = {'AA':'A Homozygous(pure)', 'Ai':'A Heterozygous(hybrid)',
-                     'BB':'B Homozygous(pure)', 'Bi':'B Heterozygous(hybrid)',
-                     'AB':'AB Homozygous(pure)', 'ii':'O Homozygous(pure)'}
-        string = "\nyour baby's gene is \n\n"
+            didic = {'AA':'A Homozygous(AA)', 'AO':'A Heterozygous(AO)',
+                     'BB':'B Homozygous(BB)', 'BO':'B Heterozygous(BO)',
+                     'AB':'AB Homozygous', 'OO':'O Homozygous'}
+        string = '\nFather : ' + didic[namecase[0]] + '    Mother : ' + didic[namecase[1]] + '\n\n'
         if self.code == 'XL':
             son, daughter = list(), list()
-            for item in self.baby:
+            for item in thiscase:
                 if 'Y' in item:
                     son.append(item)
                 else:
                     daughter.append(item)
             string += 'SON\n'
             for item in son:
-                string += didic[item] + '     ' + str(self.baby[item] * 50) + '%' + '\n'
+                string += didic[item] + '     ' + str(thiscase[item] * 50) + '%' + '\n'
             string += '\n\nDAUGHTER\n'
             for item in daughter:
-                string += didic[item] + '     ' + str(self.baby[item] * 50) + '%' + '\n'
+                string += didic[item] + '     ' + str(thiscase[item] * 50) + '%' + '\n'
             return string
         else:
-            for item in self.baby:
-                string += didic[item] + '     ' + str(self.baby[item] * 25) + '%' + '\n'
-        string += '\n\n***it only probability***'
+            for item in thiscase:
+                string += didic[item] + '     ' + str(thiscase[item] * 25) + '%' + '\n'
         return string
 
     def back(self):
