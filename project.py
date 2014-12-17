@@ -1,9 +1,9 @@
 '''
 Baby Gene
 PSIT Project
-By Tharathip Malaimarn(tharamalai=>nam)
-    Pawarisa Thong-ngoen(Jessegade=>gade)
-APPLICATION to tell you
+By Tharathip Malaimarn(57070054)
+    Pawarisa Thong-ngoen(57070068)
+This Program show you about
 - probability of gene's your baby
 --Blood Group
 --Genetic Diseases
@@ -15,6 +15,7 @@ from PIL import ImageTk, Image
 import tkMessageBox
 
 class Home(object):
+    '''main window'''
     def __init__(self,root):
         self.root = root
         self.main()
@@ -73,8 +74,7 @@ class Home(object):
         
 class Family(object):
     '''
-    input
-    Family(root, name)
+    Pedigree of family and Genetic inheritance
     '''
     def __init__(self, root, name, code):
         self.keep = dict()
@@ -223,7 +223,6 @@ class Family(object):
         print 'sumcross', sumcross
         return sumcross
             
-    
     def blood(self, root):
         print 'input', self.poo, self.yaa, self.dad, self.taa, self.yay, self.mom, self.code
         if self.dad == 'AB' or self.dad == 'OO' :
