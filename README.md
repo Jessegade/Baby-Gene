@@ -1,12 +1,12 @@
--------------------------------------------------
-				Baby-Gene Overview
-	Baby-Gene is a calculate program for show probability of biological child's gene from parents.
-It can calculate in many ways for example Blood Group, Disease's Autosome Recessive, Disease's Autosome Dominant 
-and X-Linked Recessive by select phenotype of gene for each person in parent.
+Baby-Gene
+==========================================
 
-------------------------------------------------
-For Python2
-------------------------------------------------
+Baby-Gene is a calculate program for show probability of biological child's gene from parents.
+It can calculate in many ways for example Blood Group, Disease's Autosome Recessive, Disease's Autosome Dominant and X-Linked Recessive by select phenotype of gene for each person in parent.
+
+
+------For Python2------
+
 
 ==== Installtion ===
 
