@@ -12,7 +12,6 @@ This Program show you about
 
 import Tkinter as tk
 from PIL import ImageTk, Image
-import tkMessageBox
 
 class Home(object):
     '''main window'''
