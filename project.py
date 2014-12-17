@@ -64,8 +64,8 @@ class Home(object):
         hypo = tk.Button(self.root, text="Hypohidrotic ectodermal dysplasia", command=dro, bg='white').place(x=118, y=543)
         
         quit_image = ImageTk.PhotoImage(Image.open('quitbutton.png'))
-        quit_button = tk.Button(self.root,command=self.end,image=quit_image,border=0,highlightthickness=0)
-        quit_button.place(x=170, y=600)
+        quit_button = tk.Button(self.root, command=self.end, image=quit_image, border=0, highlightthickness=0)
+        quit_button.place(x=170, y=600) 
 
         self.root.mainloop()
 
@@ -168,7 +168,7 @@ class Family(object):
         way = self.choice(lst, status)
      
         process_image = ImageTk.PhotoImage(Image.open('processbutton.png'))
-        process_button = tk.Button(self.root,command=self.bus,image=process_image,border=0,highlightthickness=0)
+        process_button = tk.Button(self.root, command=self.bus, image=process_image, border=0, highlightthickness=0)
         process_button.place(x=140, y=550)
         self.root.mainloop()
         
@@ -321,9 +321,9 @@ class Result(object):
 
         image = Image.open('backbutton.png')
         back_image = ImageTk.PhotoImage(image)
-        back_button = tk.Button(self.root,command=self.back,image=back_image,border=0,highlightthickness=0)
+        back_button = tk.Button(self.root, command=self.back, image=back_image, border=0, highlightthickness=0)
         
-        back_button.place(x=160,y=600)
+        back_button.place(x=160, y=600)
         self.root.mainloop()
 
     def printallcase(self):
