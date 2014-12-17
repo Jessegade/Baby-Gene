@@ -23,4 +23,4 @@ For Python2
   5. If you want to calculate again, Click back to main window 
 
 ------------------------------------------------------------------------------------------------------
-**** Created by Tharathip Malaimarn and Pawarisa Thong-ngoen ****
+** Created by Tharathip Malaimarn and Pawarisa Thong-ngoen **
