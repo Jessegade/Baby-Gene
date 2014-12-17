@@ -78,7 +78,6 @@ class Family(object):
     Pedigree of family and Genetic inheritance
     '''
     def __init__(self, root, name, code):
-        self.keep = dict()
         self.name = name
         self.root = root
         self.code = code
