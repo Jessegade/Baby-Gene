@@ -21,6 +21,7 @@ class Home(object):
         self.main()
 
     def main(self):
+        '''main window and button'''
         self.root.geometry("430x650")
         self.root.resizable(width='false', height='false')
         self.root.title('Baby Gene')
@@ -70,6 +71,7 @@ class Home(object):
         self.root.mainloop()
 
     def end(self):
+        '''quit program'''
         self.root.destroy()
         
 class Family(object):
@@ -90,6 +92,7 @@ class Family(object):
         self.tree()
 
     def choice(self, lst, status):
+        '''input (option menu)'''
         fatherfam =  tk.Label(self.root, text="-----------Father's Family-----------").place(relx=0.5, rely=0.42, anchor='center')
         motherfam =  tk.Label(self.root, text="-----------Mother's Family-----------").place(relx=0.5, rely=0.63, anchor='center')
         
@@ -130,6 +133,7 @@ class Family(object):
         mom_type.place(x=165, y=500)
 
     def tree(self):
+        '''pedigree(family tree)'''
         self.root.geometry("430x650")
         self.root.resizable(width='false', height='false')
         image = Image.open('win1.jpg')
@@ -173,6 +177,7 @@ class Family(object):
         self.root.mainloop()
         
     def bus(self):
+        '''get data from option menu'''
         st = {'DISEASED':'D', 'NORMAL':'N', 'CARRIER':'C', 'A':['AA','AO'], 'B':['BB', 'BO'],
               'AB':['AB'], 'O':['OO']}
         self.poo, self.yaa, self.dad = st[self.poo.get()], st[self.yaa.get()], st[self.dad.get()]
@@ -187,6 +192,7 @@ class Family(object):
             self.blood(self.root)     
 
     def cross(self, male, female, code):
+        '''return genotype of male cross female'''
         genotype = dict()
         male, female = male, female
         for s in male:
@@ -202,6 +208,7 @@ class Family(object):
             return genotype
 
     def testloop(self, test, comp):
+        '''return genotype of grandparents intersect parent'''
         pool = dict()
         for i in test:
             if i in comp:
@@ -213,6 +220,7 @@ class Family(object):
         return pool.keys()
 
     def allcase(self, alldad, allmom, code, re):
+        '''cross all case of mom and dad'''
         sumcross = []
         for i in alldad:
             for j in allmom:
@@ -224,6 +232,7 @@ class Family(object):
         return sumcross
             
     def blood(self, root):
+        '''return blood genotype of baby'''
         print 'input', self.poo, self.yaa, self.dad, self.taa, self.yay, self.mom, self.code
         if self.dad == 'AB' or self.dad == 'OO' :
             self.alldad = self.dad
@@ -242,6 +251,7 @@ class Family(object):
         print_result = Result(root, baby, self.name, self.code)
            
     def autosomerecessive(self, root):
+        '''return genotype of baby (autosome recessive)'''
         tran = {'D':['aa'], 'N':['AA', 'Aa'], 'C':['Aa']}
         self.poo, self.yaa, self.dad = tran[self.poo], tran[self.yaa], tran[self.dad]
         self.taa, self.yay, self.mom = tran[self.taa], tran[self.yay], tran[self.mom]
@@ -263,6 +273,7 @@ class Family(object):
         print_result = Result(root, baby, self.name, self.code)
 
     def autosomedominant(self, root):
+        '''return genotype of baby (autosome dominant)'''
         tran = {'D':['AA', 'Aa'], 'N':['aa']}
         self.poo, self.yaa, self.dad = tran[self.poo], tran[self.yaa], tran[self.dad]
         self.taa, self.yay, self.mom = tran[self.taa], tran[self.yay], tran[self.mom]
@@ -284,6 +295,7 @@ class Family(object):
         print_result = Result(root, baby, self.name, self.code)
 
     def xlink(self, root):
+        '''return genotype of baby (x-linked recessive)'''
         tran_m = {'N':['XY'], 'D':['Yx']}
         tran_w = {'N':['XX', 'Xx'], 'D':['xx']}
         self.poo, self.yaa, self.dad = tran_m[self.poo], tran_w[self.yaa], tran_m[self.dad]
@@ -302,6 +314,7 @@ class Family(object):
         print_result = Result(root, baby, self.name, self.code)
 
 class Result(object):
+    '''print result'''
     def __init__(self, root ,baby, name, code):
         self.root = root
         self.baby = baby
@@ -309,7 +322,7 @@ class Result(object):
         self.code = code
         self.print_gene()
     def print_gene(self):
-
+        '''result window'''
         self.root.geometry("430x650")
         self.root.resizable(width='false', height='false')
         image = Image.open('win1.jpg')
@@ -327,6 +340,7 @@ class Result(object):
         self.root.mainloop()
 
     def printallcase(self):
+        '''return string of all case mom cross dad'''
         if len(self.baby) == 0:
             data =  '********************  Your PEDIGREE is invalid  ********************\n\n'
             data += 'Please check your Pedigree again :=]'
@@ -341,6 +355,7 @@ class Result(object):
         return data
     
     def predict(self, namecase, thiscase):
+        '''return string of each case'''
         if self.code == 'AR':
             didic = {'aa':' Diseased', 'Aa':' Carrier', 'AA':' Normal'}
         elif self.code == 'AD':
@@ -374,6 +389,7 @@ class Result(object):
         return string
 
     def back(self):
+        '''back main window'''
         self.name = ''
         app = Home(self.root)
             
